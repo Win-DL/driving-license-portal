@@ -1,0 +1,238 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100%;
+    font-family: 'Arial', sans-serif;
+}
+
+.blur-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    z-index: 998;
+}
+
+.blur-active .content,
+.blur-active .navbar {
+    filter: blur(5px);
+    pointer-events: none;
+}
+
+.banner {
+    background: #e6f2ff;
+    padding: 15px 20px;
+    border-radius: 10px;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 600px;
+    width: 90%;
+    z-index: 1000;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+.banner h3 {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+.banner ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.banner ul li {
+    font-size: 1em;
+    color: #444;
+    margin: 5px 0;
+    text-align: left;
+}
+
+.close-btn {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+}
+
+.close-btn:hover {
+    color: red;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.navbar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background-color: #d9d9d9;
+    border-radius: 8px 8px 0 0;
+}
+
+.logo {
+    height: 40px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: #000;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px;
+}
+
+.info-section {
+    height: 200px;
+    background-color: #eaf3fa;
+    padding: 10px;
+    border-radius: 8px;
+    width: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.info-section h3 {
+    font-size: 1.2rem;
+    color: #000;
+    font-weight: bold;
+}
+
+.info-section p {
+    font-size: 1rem;
+    color: #333;
+    margin-top: 10px;
+}
+
+.login-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    background: #fff;
+    padding: 30px;
+    border: 2px solid #000000ad;
+    border-radius: 12px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.login-box h2 {
+    font-size: 1.5rem;
+    color: #000;
+    font-family: 'Monda', sans-serif;
+    margin-bottom: 10px;
+}
+
+.login-box label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 540;
+    color: #000;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1rem;
+}
+
+.forgot-password {
+    display: block;
+    font-size: 0.9rem;
+    text-align: right;
+    margin: 10px 0;
+    color: #000 ;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 5px;
+    background: #000000d7;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.login-btn:hover {
+    background-color: #000;
+}
+
+.register-text {
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+.register-text span:hover {
+    text-decoration: underline;
+}
+
+.google-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #e5e5e5;
+    color: #000;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.google-login:hover {
+    background-color: #d4d4d4;
+}
