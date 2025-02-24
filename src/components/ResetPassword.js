@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../styles/ResetPassword.css";
 import { FaEye, FaEyeSlash, FaArrowLeft } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const ResetPassword = () => {
   const [step, setStep] = useState(1);
@@ -10,6 +11,8 @@ const ResetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  
+  const navigate = useNavigate(); 
 
   const handleSendOtp = () => {
     alert("OTP sent to " + email);
@@ -32,6 +35,8 @@ const ResetPassword = () => {
     }
     alert("Password reset successfully");
     setStep(1);
+
+    navigate('/');
   };
 
   const handleBack = () => {
@@ -42,7 +47,7 @@ const ResetPassword = () => {
     <div className="reset-container">
       <div className="reset-box">
       
-        {step > 1 && (
+        {step === 2 && (
           <span onClick={handleBack} className="back-icon">
             <FaArrowLeft />
           </span>
