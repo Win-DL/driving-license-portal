@@ -115,13 +115,18 @@
     flex-direction: column;
   }
    
-  .navbar-buttons2 {
-    gap: var(--dl-space-space-twounits);
-    display: flex;
-    margin-top: var(--dl-space-space-twounits);
-    align-items: center;
+  .search-school input{
+    width: 130%;
+    padding: 10px;
+    border: 1px solid var(--dl-color-theme-neutral-dark);
+    border-radius: 5px;
   }
-   
+
+  .search-school input::placeholder{
+    color: var(--dl-color-theme-neutral-dark);
+    padding-right: 5px;
+  }
+
   @media(max-width: 767px) {
     .navbar-navbar-interactive {
       padding-left: var(--dl-space-space-twounits);

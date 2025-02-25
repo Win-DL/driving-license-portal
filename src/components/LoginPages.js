@@ -34,7 +34,7 @@ const LoginPage = () => {
           <button className="close-btn" onClick={() => setShowBanner(false)}>
             <IoClose size={20} />
           </button>
-          <h3>🚗 Get Your Driving License in 4 Easy Steps</h3>
+          <h3>🚗 Get Your Driving License in 5 Easy Steps</h3>
           <ul>
             <li>1️⃣ Your License, Our Responsibility - Let's Get Started!</li>
             <li>2️⃣ Simplifying Your Driving License Journey - Hassle-Free!</li>

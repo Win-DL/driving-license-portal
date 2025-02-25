@@ -26,15 +26,18 @@ const Navbar = ({
             <span className="thq-link thq-body-small">{link3}</span>
             <span className="thq-link thq-body-small">{link4}</span>
           </div>
-          <div className="navbar-buttons1">
-            
-            <button
-              className="navbar-action11 thq-button-animated thq-button-filled"
-              aria-label="User Button"
-            >
-              <span className="thq-body-small">User</span>
+          
+          <form className="d-flex search-school" role="search">
+            <input
+              className="form-control me-2"
+              type="search"
+              placeholder="Search for Driving School"
+              aria-label="Search"
+            ></input>
+            <button className="navbar-action11 thq-button-animated thq-button-filled" type="submit">
+              Search
             </button>
-          </div>
+          </form>
         </nav>
       </header>
     </div>

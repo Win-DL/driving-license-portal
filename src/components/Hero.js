@@ -17,9 +17,22 @@ import image12 from "../images/image12.jpg";
 const Hero = ({
   heading1 = "Welcome to the Driving License Portal",
   content1 = "Apply for your Learner's License or Driving License with ease on our user-friendly platform. Streamlining the licensing process for a hassle-free experience.",
-  action1 = "Register",
+  action1 = "Get Started",
   action2 = "Know More",
-  images = [image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12],
+  images = [
+    image1,
+    image2,
+    image3,
+    image4,
+    image5,
+    image6,
+    image7,
+    image8,
+    image9,
+    image10,
+    image11,
+    image12,
+  ],
   imageAlts = [
     "Driving License Portal Image",
     "Hero Image",
@@ -59,41 +72,13 @@ const Hero = ({
                 key={i}
                 alt={imageAlts[i % images.length] || "Hero Image"}
                 src={src}
-                className="hero-placeholder-image thq-img-scale thq-img-ratio-1-1"
+                className="hero-placeholder-image thq-img-scale thq-img-ratio-4-3"
               />
             ))}
           </div>
         </div>
       </div>
-      <div className="hero-container2">
-        <style>
-          {`
-            .hero-image-slider {
-              overflow: hidden;
-              white-space: nowrap;
-              position: relative;
-              width: 100%;
-            }
-
-            .hero-image-track {
-              display: flex;
-              animation: scroll-x 20s linear infinite;
-              width: calc(200%);
-            }
-
-            .hero-placeholder-image {
-              width: auto;
-              height: 150px;
-              margin: 0 10px;
-            }
-
-            @keyframes scroll-x {
-              from { transform: translateX(0); }
-              to { transform: translateX(-50%); }
-            }
-          `}
-        </style>
-      </div>
+      <div className="hero-container2"></div>
     </div>
   );
 };
