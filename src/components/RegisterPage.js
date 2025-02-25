@@ -1,125 +1,127 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import logo from "../images/logo.png";
+import profile from "../images/Driving-License.jpg";
 import "../styles/RegisterPage.css";
 
 const RegisterPage = ({ header = "Register", register = "Register" }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [email, setEmail] = useState("");
-  const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [fullName, setFullName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [otp, setOtp] = useState("");
-  const [generatedOtp, setGeneratedOtp] = useState(null);
+  const [otpSent, setOtpSent] = useState(false);
   const navigate = useNavigate();
 
   const handleSendOtp = () => {
     if (email) {
-      const otpCode = Math.floor(1000 + Math.random() * 9000); // Generate a 4-digit OTP
-      setGeneratedOtp(otpCode);
-      alert(`Your OTP is: ${otpCode}`); // Replace with actual email service
-    }
-  };
-
-  const handleVerifyOtp = () => {
-    if (parseInt(otp) === generatedOtp) {
-      setIsEmailVerified(true);
-      alert("Email verified successfully!");
-    } else {
-      alert("Invalid OTP. Please try again.");
+      setOtpSent(true);
+      alert("OTP sent to your email!");
     }
   };
 
   return (
     <div className="register-container">
-      <div className="register">
-        <h3>{header}</h3>
-        <input type="text" placeholder="Full Name" id="name" />
-        <input
-          type="text"
-          placeholder="Email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          disabled={isEmailVerified}
-        />
-        {!isEmailVerified ? (
-          <button type="button" onClick={handleSendOtp}>
-            Send OTP
-          </button>
-        ) : null}
+      <nav className="navbar">
+        <img alt="DL Easy Logo" src={logo} className="logo" />
+        <div className="nav-links">
+          <a href="#">Our Services</a>
+          <a href="#">About</a>
+        </div>
+      </nav>
 
-        {/* OTP Verification */}
-        {!isEmailVerified && generatedOtp && (
-          <>
+      <main className="content">
+        <img src={profile} alt="Home Page" className="home-pic" />
+        <section className="register-box">
+          <h2>{header}</h2>
+
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+          />
+          
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={otpSent}
+          />
+
+          <div className="password-wrapper">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="New Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {showPassword ? (
+              <FaEyeSlash
+                className="eye-icon"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            ) : (
+              <FaEye
+                className="eye-icon"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+            )}
+          </div>
+
+          <div className="password-wrapper">
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              placeholder="Confirm New Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            {showConfirmPassword ? (
+              <FaEyeSlash
+                className="eye-icon"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              />
+            ) : (
+              <FaEye
+                className="eye-icon"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              />
+            )}
+          </div>
+
+          {otpSent && (
             <input
               type="text"
               placeholder="Enter OTP"
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
             />
-            <button type="button" onClick={handleVerifyOtp}>
-              Verify OTP
-            </button>
-          </>
-        )}
+          )}
 
-        {isEmailVerified && (
-          <>
-            {/* Password Input */}
-            <div className="password-wrapper">
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"
-                id="password"
-              />
-              {showPassword ? (
-                <IoEyeOffOutline
-                  className="eye-icon"
-                  onClick={() => setShowPassword(!showPassword)}
-                />
-              ) : (
-                <IoEyeOutline
-                  className="eye-icon"
-                  onClick={() => setShowPassword(!showPassword)}
-                />
-              )}
-            </div>
-
-            {/* Confirm Password Input */}
-            <div className="password-wrapper">
-              <input
-                type={showConfirmPassword ? "text" : "password"}
-                placeholder="Confirm Password"
-                id="cpassword"
-              />
-              {showConfirmPassword ? (
-                <IoEyeOffOutline
-                  className="eye-icon"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                />
-              ) : (
-                <IoEyeOutline
-                  className="eye-icon"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                />
-              )}
-            </div>
-
-            <button type="button">{register}</button>
-          </>
-        )}
-
-        <p className="login-text">
-          Have an account?{" "}
-          <span
-            onClick={() => navigate("/")}
-            style={{ cursor: "pointer" }}
+          <button
+            type="button"
+            className="register-btn"
+            onClick={!otpSent ? handleSendOtp : undefined}
           >
-            Sign In
-          </span>
-        </p>
-      </div>
+            {otpSent ? register : "Send OTP"}
+          </button>
+
+          <p className="login-text">
+            Have an account?{" "}
+            <span onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
+              Sign In
+            </span>
+          </p>
+        </section>
+      </main>
+      <footer>
+        <p>Design By Who?</p>
+      </footer>
     </div>
   );
 };

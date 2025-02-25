@@ -16,7 +16,7 @@ import image12 from "../images/image12.jpg";
 
 const Hero = ({
   heading1 = "Welcome to the Driving License Portal",
-  content1 = "Apply for your Learner's License or Driving License with ease on our user-friendly platform. Streamlining the licensing process for a hassle-free experience.",
+  content1 = "Apply for your Driving License with ease on our user-friendly platform. Streamlining the licensing process for a hassle-free experience.",
   action1 = "Get Started",
   action2 = "Know More",
   images = [

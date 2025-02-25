@@ -11,11 +11,9 @@ const Footer = ({
   content3 = "Designed and Developed by WinDL Team",
   column1Title = "Quick Links",
   column2Title = "Support",
-  link1 = "Apply for Learner's License",
-  link2 = "Apply for Driving License",
-  link3 = "Check Application Status",
-  link4 = "Learner's License Tutorial",
-  link5 = "FAQs",
+  link1 = "Apply for Driving License",
+  link2 = "Check Application Status",
+  link3 = "FAQs",
   link6 = "Contact Us",
   link7 = "About Us",
   link8 = "Privacy Policy",
@@ -26,7 +24,7 @@ const Footer = ({
       <div className="footer-max-width thq-section-max-width">
         <div className="footer-content">
           <div className="footer-newsletter">
-            <img alt={logoAlt} src={logoSrc} className="footer-image1" />
+            {/* <img alt={logoAlt} src={logoSrc} className="footer-image1" /> */}
             <span className="thq-body-small">Reach Us.</span>
             <div className="footer-actions">
               <div className="footer-form">
@@ -50,14 +48,12 @@ const Footer = ({
                 {column1Title}
               </strong>
               <div className="footer-footer-links1">
-                {[link1, link2, link3, link4, link5].map((link, index) => (
+                {[link1, link2, link3].map((link, index) => (
                   <a
                     key={index}
                     href={
-                      link === "Apply for Learner's License" ? "/apply-learner" :
                       link === "Apply for Driving License" ? "/apply-driving" :
                       link === "Check Application Status" ? "/status" :
-                      link === "Learner's License Tutorial" ? "/tutorial" :
                       link === "FAQs" ? "/faqs" : "#"
                     }
                     className="thq-body-small"
@@ -112,8 +108,6 @@ Footer.propTypes = {
   link1: PropTypes.string,
   link2: PropTypes.string,
   link3: PropTypes.string,
-  link4: PropTypes.string,
-  link5: PropTypes.string,
   link6: PropTypes.string,
   link7: PropTypes.string,
   link8: PropTypes.string,

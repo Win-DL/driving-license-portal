@@ -19,7 +19,7 @@ const features = [
   },
   {
     title: 'Online Application Submission',
-    description: 'Users can apply for Learner`s License and Driving License without visiting an office.',
+    description: 'Users can apply for Driving License without visiting an office.',
     imgSrc: image3,
     imgAlt: 'Image depicting online application submission',
   },

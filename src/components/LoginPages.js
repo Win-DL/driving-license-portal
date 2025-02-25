@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { IoClose } from "react-icons/io5";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import logo from "../images/logo.png";
+import profile from "../images/Driving-License.jpg";
 import "../styles/Loginpage.css";
-import { useNavigate, Routes, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [showBanner, setShowBanner] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,7 +27,7 @@ const LoginPage = () => {
       <nav className="navbar">
         <img alt="DL Easy Logo" src={logo} className="logo" />
         <div className="nav-links">
-          <a href="#">Our services</a>
+          <a href="#">Our Services</a>
           <a href="#">About</a>
         </div>
       </nav>
@@ -46,29 +49,30 @@ const LoginPage = () => {
       )}
 
       <main className="content">
-        <section className="info-section">
-          <h3>Welcome to DL Easy - Your Path to a Hassle-Free Driving License!</h3>
-          <p>🚗 Learn. Get Certified. Apply for Your License - All in One Place!</p>
-          <p>🔹 Connect with certified driving schools</p>
-          <p>🔹 Book driving lessons & track your progress</p>
-          <p>🔹 Get certified and your Driving License at one place</p>
-        </section>
-
+        <img src={profile} alt="Home Page Picture" className="home-pic" />
         <section className="login-box">
           <h2>Login to your account</h2>
           <label htmlFor="email">Email</label>
           <input type="text" placeholder="Email" id="email" />
+
           <label htmlFor="password">Password</label>
-          <input type="password" placeholder="Password" id="password" />
+          <div className="password-container">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              id="password"
+            />
+            <button
+              type="button"
+              className="eye-button"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
           
           <p className="forgot-password">
-            <span
-              onClick={() => navigate("/reset")}
-              style={{
-                color: "#000",
-                cursor: "pointer",
-              }}
-            >
+            <span onClick={() => navigate("/reset")} style={{ color: "#000", cursor: "pointer" }}>
               Forgot password?
             </span>
           </p>
@@ -76,22 +80,20 @@ const LoginPage = () => {
           <button onClick={() => navigate("/home")} className="login-btn">Login</button>
           
           <p className="register-text">
-            New Learner?{" "}
-            <span
-              onClick={() => navigate("/register")}
-              style={{
-                color: "#000",
-                cursor: "pointer",
-              }}
-            >
+            New Learner? {" "}
+            <span onClick={() => navigate("/register")} style={{ color: "#000", cursor: "pointer" }}>
               Register here
             </span>
           </p>
+          
           <button className="google-login">
             <FcGoogle size={20} /> Continue with Google
           </button>
         </section>
       </main>
+      <footer>
+        <p>Design By Who?</p>
+      </footer>
     </div>
   );
 };

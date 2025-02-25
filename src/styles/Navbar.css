@@ -1,5 +1,6 @@
 .navbar-container {
   width: 100%;
+  height: 70px;
   display: flex;
   position: relative;
   justify-content: center;
@@ -41,157 +42,14 @@
   margin-left: var(--dl-space-space-twounits);
 }
 
-.navbar-burger-menu {
-  display: none;
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-size: 24px;
-}
-
-.navbar-burger-menu svg {
-  width: 30px;
-  height: 30px;
-}
-
-.navbar-mobile-menu {
-  position: fixed;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100vh;
-  background-color: var(--dl-color-theme-neutral-light);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  transition: left 0.3s ease-in-out;
-}
-
-.navbar-mobile-menu.active {
-  left: 0;
-}
-
-.navbar-nav {
-  display: flex;
-  flex-direction: column;
-  gap: var(--dl-space-space-twounits);
-  text-align: center;
-  width: 100%;
-}
-
-.navbar-nav span {
-  font-size: 1.2rem;
-  font-weight: bold;
-  cursor: pointer;
-  padding: 10px 0;
-}
-
-.navbar-top {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--dl-space-space-twounits);
-}
-
-.navbar-logo {
-  height: 3rem;
-}
-
-.navbar-close-menu {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  background: none;
-  border: none;
-}
-
-.navbar-close-menu svg {
-  width: 30px;
-  height: 30px;
-}
-
-.search-school {
-  display: flex;
-  align-items: center;
-}
-
-.search-school input {
-  width: 130%;
-  padding: 10px;
-  border: 1px solid var(--dl-color-theme-neutral-dark);
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.search-school input::placeholder {
-  color: var(--dl-color-theme-neutral-dark);
-}
-
-.mobile-search {
-  display: none;
-}
-
 @media (max-width: 1200px) {
   .navbar-navbar-interactive {
     padding: var(--dl-space-space-twounits);
-  }
-
-  .mobile-search {
-    display: none;
-    display: flex;
-    justify-content: center;
-    padding: var(--dl-space-space-unit);
-  }
-
-  .navbar-logo {
-    display: none;
   }
 }
 
 @media (max-width: 1024px) {
   .navbar-desktop-menu {
-    display: none;
-  }
-
-  .navbar-burger-menu {
-    display: flex;
-    font-size: 24px;
-    position: absolute;
-    right: 10px;
-  }
-
-  .navbar-search-button {
-    display: flex;
-    font-size: 24px;
-    position: absolute;
-    right: 10px;
-  }
-
-  .navbar-burger-menu svg {
-    width: 30px;
-    height: 30px;
-  }
-
-  .search-school input {
-    width: 100%;
-    max-width: 200px;
-  }
-
-  .mobile-search {
-    display: flex;
-    justify-content: center;
-    padding: var(--dl-space-space-unit);
-  }
-
-  .navbar-logo {
-    display: none;
-  }
-
-  .search-school {
     display: none;
   }
 }
@@ -200,83 +58,10 @@
   .navbar-navbar-interactive {
     padding: var(--dl-space-space-unit);
   }
-
-  .navbar-logo {
-    display: none;
-  }
-
-  .navbar-burger-menu {
-    display: flex;
-    font-size: 24px;
-    position: absolute;
-    right: 10px;
-  }
-
-  .navbar-search-button {
-    display: flex;
-    font-size: 24px;
-    position: absolute;
-    right: 10px;
-    padding-left: 10px;
-  }
-
-  .navbar-burger-menu svg {
-    width: 30px;
-    height: 30px;
-  }
-
-  .search-school input {
-    width: 100%;
-    max-width: 180px;
-  }
-
-  .navbar-mobile-menu {
-    padding: var(--dl-space-space-unit);
-  }
-
-  .navbar-nav {
-    gap: var(--dl-space-space-unit);
-  }
 }
 
 @media (max-width: 480px) {
   .navbar-navbar-interactive {
-    padding: var(--dl-space-space-unit);
-  }
-
-  .navbar-logo {
-    display: none;
-  }
-
-  .navbar-burger-menu {
-    display: flex;
-    font-size: 20px;
-    position: absolute;
-    right: 10px;
-  }
-
-  .navbar-search-button {
-    display: flex;
-    font-size: 20px;
-    position: absolute;
-    right: 10px;
-  }
-
-  .navbar-burger-menu svg {
-    width: 25px;
-    height: 25px;
-  }
-
-  .search-school input {
-    width: 100%;
-    max-width: 160px;
-  }
-
-  .navbar-nav {
-    gap: var(--dl-space-space-unit);
-  }
-
-  .navbar-mobile-menu {
     padding: var(--dl-space-space-unit);
   }
 }

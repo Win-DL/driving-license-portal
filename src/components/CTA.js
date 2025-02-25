@@ -4,8 +4,7 @@ import '../styles/CTA.css';
 
 const CTA = ({
   heading1 = 'Get Started Today!',
-  content1 =
-    "Apply for your Learner's License or Driving License hassle-free with our portal.",
+  content1 = "Get your driving license quickly and easily with our streamlined process.",
   action1 = 'Apply Now',
 }) => {
   return (

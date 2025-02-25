@@ -4,13 +4,13 @@ import "../styles/Steps.css";
 
 const Steps = ({
   step1Title = "Home Page Navigation",
-  step1Description = "Users arrive at the homepage and can choose options like Apply LL, Apply DL, Application Status, and Tutorial LL. A navigation bar helps users move between different sections.",
-  step2Title = "Applying for a Learner’s License (LL) or Driving License (DL)",
+  step1Description = "Users arrive at the homepage and can choose options like Apply DL, Application Status, and Book Sessions. A navigation bar helps users move between different sections.",
+  step2Title = "Applying for Driving License (DL)",
   step2Description = "Users can start their application by clicking on the respective button, filling in required details, uploading necessary documents, and submitting the application.",
   step3Title = "Checking Application Status",
-  step3Description = "Users can track the status of their LL or DL application by entering their application number.",
-  step4Title = "Learner’s License Tutorial",
-  step4Description = "The platform offers study material and interactive tutorials to assist users in preparing for the Learner’s License Test."
+  step3Description = "Users can track the status of their DL application by entering their application number.",
+  step4Title = "Book Sessions",
+  step4Description = "The platform offers users to book sessions based on availability of slots."
 }) => {
   return (
     <section className="steps-container1 thq-section-padding">
@@ -20,9 +20,9 @@ const Steps = ({
           <div className="steps-section-header">
             <h2 className="thq-heading-2">Discover the Power of Our Portal</h2>
             <p className="thq-body-large">
-              Our platform offers a seamless experience for users to apply for a
-              Learner’s License (LL) or Driving License (DL), track their
-              application status, and prepare for the LL test. Get started now!
+              Our platform offers a seamless experience for users to apply for 
+              Driving License (DL), track their application status, and prepare
+              for the test. Hurry Up! Be the first one to get Driving License.
             </p>
             <div className="steps-actions">
               <button className="thq-button-animated thq-button-filled steps-button">
