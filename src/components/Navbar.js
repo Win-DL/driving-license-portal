@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdAccountCircle } from "react-icons/md";
 import { IoClose } from "react-icons/io5"; 
 import { RiLogoutCircleRLine } from "react-icons/ri";
@@ -10,6 +10,7 @@ const Navbar = ({ logoSrc = logo, logoAlt = "Driving License Portal" }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -32,7 +33,13 @@ const Navbar = ({ logoSrc = logo, logoAlt = "Driving License Portal" }) => {
   return (
     <div className="navbar-container">
       <header data-thq="thq-navbar" className="navbar-navbar-interactive">
-        <img alt={logoAlt} src={logoSrc} className="navbar-image1" />
+        <img
+          alt={logoAlt}
+          src={logoSrc}
+          className="navbar-image1"
+          onClick={() => navigate("/home")}
+          style={{ cursor: "pointer" }}
+        />
 
         <nav className="navbar-desktop-menu">
           <div className="profile-container">

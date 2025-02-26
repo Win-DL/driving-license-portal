@@ -22,7 +22,6 @@ body {
     height: 70px;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 30px;
     background-color: var(--dl-color-theme-neutral-light);
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -51,7 +50,8 @@ body {
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    padding: 20px;
+    padding: 0;
+    margin: 0;
 }
 
 .intro{
@@ -63,6 +63,27 @@ body {
     height: 650px;
 
 }
+
+
+/* .intro-container{
+    width: 100%;
+    max-width: 700px;
+    height: 500px;
+    margin: 0;
+    background-color: rgba(37, 69, 83, 0.8);
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 20px;
+}
+
+.intro{
+    background-color: gray;
+    padding: 50px;
+    width: 100%;
+    max-width: 600px;
+    height: 450px;
+    text-align: left;
+} */
+
 
 .login-box {
     display: flex;
