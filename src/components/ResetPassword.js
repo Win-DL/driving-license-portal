@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaArrowLeft } from "react-icons/fa";
 import logo from "../images/logo.png";
-import intro from "../images/IntroductionNote.jpg";
+import intro from "../images/IntroductionNote.png";
 import "../styles/ResetPassword.css";
 
 const ResetPassword = () => {

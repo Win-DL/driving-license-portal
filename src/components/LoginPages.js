@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import logo from "../images/logo.png";
-import intro from "../images/IntroductionNote.jpg";
+import intro from "../images/IntroductionNote.png";
 import "../styles/Loginpage.css";
 import { useNavigate } from "react-router-dom";
 

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import logo from "../images/logo.png";
-import intro from "../images/IntroductionNote.jpg";
+import intro from "../images/IntroductionNote.png";
 import "../styles/RegisterPage.css";
 
 const RegisterPage = ({ header = "Register", register = "Register" }) => {
