@@ -55,11 +55,13 @@ body {
 }
 
 .intro{
+    margin-top: -4.5%;
+    margin-left: -4.6%;
     padding: 40px;
     width: 100%;
-    max-width: 650px;
-    height: 500px;
-    background-color: rgba(230, 241, 247, 1);
+    max-width: 850px;
+    height: 650px;
+
 }
 
 .login-box {
