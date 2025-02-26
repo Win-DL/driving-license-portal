@@ -12,7 +12,7 @@
   max-width: var(--dl-size-size-maxwidth);
   display: flex;
   align-items: center;
-  padding: var(--dl-space-space-twounits) var(--dl-space-space-threeunits);
+  padding: 0px 15px 0px 15px;
   justify-content: space-between;
 }
 
