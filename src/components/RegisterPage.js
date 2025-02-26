@@ -39,20 +39,24 @@ const RegisterPage = ({ header = "Register", register = "Register" }) => {
         <section className="register-box">
           <h2>{header}</h2>
 
-          <input
-            type="text"
-            placeholder="Full Name"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-          />
-          
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            disabled={otpSent}
-          />
+          <div style={{ marginBottom: '10px' }} >
+            <input
+              type="text"
+              placeholder="Full Name"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              />
+          </div>
+
+          <div>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={otpSent}
+              />
+          </div>  
 
           <div className="password-wrapper">
             <input
@@ -94,14 +98,16 @@ const RegisterPage = ({ header = "Register", register = "Register" }) => {
             )}
           </div>
 
-          {otpSent && (
-            <input
-              type="text"
-              placeholder="Enter OTP"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-            />
-          )}
+          <div style={{ marginTop: '10px' }}> 
+            {otpSent && (
+              <input
+                type="text"
+                placeholder="Enter OTP"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+              />
+            )}
+          </div>
 
           <button
             type="button"
@@ -119,9 +125,6 @@ const RegisterPage = ({ header = "Register", register = "Register" }) => {
           </p>
         </section>
       </main>
-      <footer>
-        <p>Design By Who?</p>
-      </footer>
     </div>
   );
 };

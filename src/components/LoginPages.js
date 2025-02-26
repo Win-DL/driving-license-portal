@@ -91,9 +91,6 @@ const LoginPage = () => {
           </button>
         </section>
       </main>
-      <footer>
-        <p>Design By Who?</p>
-      </footer>
     </div>
   );
 };

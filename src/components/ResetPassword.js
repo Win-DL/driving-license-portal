@@ -128,10 +128,6 @@ const ResetPassword = () => {
             )}
           </section>
       </main>
-
-      <footer>
-        <p>Design By Who?</p>
-      </footer>
     </div>
   );
 };
