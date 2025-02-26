@@ -56,7 +56,7 @@ const Navbar = ({ logoSrc = logo, logoAlt = "Driving License Portal" }) => {
               </div>
               <ul>
                 <li>
-                  <Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
+                  <Link to="/home" onClick={() => setIsMenuOpen(false)}>Home</Link>
                 </li>
                 <li>
                   <Link to="/services" onClick={() => setIsMenuOpen(false)}>Our Services</Link>
