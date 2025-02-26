@@ -8,72 +8,6 @@ body {
     font-family: 'Arial', sans-serif;
 }
 
-.blur-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(5px);
-    z-index: 998;
-}
-
-.blur-active .content,
-.blur-active .navbar {
-    filter: blur(5px);
-    pointer-events: none;
-}
-
-.banner {
-    background: #e6f2ff;
-    padding: 15px 20px;
-    border-radius: 10px;
-    text-align: center;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 600px;
-    width: 90%;
-    z-index: 1000;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease-in-out;
-}
-
-.banner h3 {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #333;
-}
-
-.banner ul {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0;
-}
-
-.banner ul li {
-    font-size: 1em;
-    color: #444;
-    margin: 5px 0;
-    text-align: left;
-}
-
-.close-btn {
-    position: absolute;
-    top: 8px;
-    right: 10px;
-    background: none;
-    cursor: pointer;
-    font-size: 18px;
-    color: #333;
-}
-
-.close-btn:hover {
-    color: red;
-}
-
 .login-container {
     display: flex;
     flex-direction: column;
@@ -85,6 +19,7 @@ body {
 .navbar {
     width: 100%;
     display: flex;
+    height: 70px;
     align-items: center;
     justify-content: space-between;
     padding: 15px 30px;
@@ -119,11 +54,12 @@ body {
     padding: 20px;
 }
 
-.home-pic{
+.intro{
+    padding: 40px;
     width: 100%;
-    max-width: 500px;
-    height: 350px;
-    margin: -20px 10px 10px 50px;
+    max-width: 650px;
+    height: 500px;
+    background-color: rgba(230, 241, 247, 1);
 }
 
 .login-box {
@@ -188,12 +124,12 @@ body {
     font-size: 0.9rem;
     text-align: right;
     margin: 10px 0;
-    color: #000;
     text-decoration: none;
 }
 
 .forgot-password:hover {
     text-decoration: underline;
+    color: #1A73E8;
 }
 
 .login-btn {

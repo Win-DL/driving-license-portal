@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import logo from "../images/logo.png";
-import profile from "../images/Driving-License.jpg";
+import intro from "../images/IntroductionNote.jpg";
 import "../styles/RegisterPage.css";
 
 const RegisterPage = ({ header = "Register", register = "Register" }) => {
@@ -35,7 +35,7 @@ const RegisterPage = ({ header = "Register", register = "Register" }) => {
       </nav>
 
       <main className="content">
-        <img src={profile} alt="Home Page" className="home-pic" />
+        <img src={intro} alt="Introduction" className="intro" />
         <section className="register-box">
           <h2>{header}</h2>
 
@@ -119,7 +119,7 @@ const RegisterPage = ({ header = "Register", register = "Register" }) => {
 
           <p className="login-text">
             Have an account?{" "}
-            <span onClick={() => navigate("/")} style={{ cursor: "pointer" }}>
+            <span onClick={() => navigate("/")} style={{ color: "#1A73E8",cursor: "pointer" }}>
               Sign In
             </span>
           </p>

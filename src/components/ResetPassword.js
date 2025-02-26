@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaArrowLeft } from "react-icons/fa";
 import logo from "../images/logo.png";
-import profile from "../images/Driving-License.jpg";
+import intro from "../images/IntroductionNote.jpg";
 import "../styles/ResetPassword.css";
 
 const ResetPassword = () => {
@@ -52,7 +52,7 @@ const ResetPassword = () => {
       </nav>
 
       <main className="content">
-        <img src={profile} alt="Home Page" className="home-pic" />
+        <img src={intro} alt="Introduction" className="intro" />
           <section className="reset-box">
             {step > 1 && (
               <span onClick={() => setStep(step - 1)} className="back-icon">
