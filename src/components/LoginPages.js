@@ -25,6 +25,7 @@ const LoginPage = () => {
 
         <div className="intro-container">
           <div className="card">
+            <div className="circle"></div>
             <h1>
               🚗 Welcome to DL Easy - Your Smooth Ride to a Driving License!
             </h1>
