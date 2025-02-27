@@ -56,6 +56,7 @@ const ResetPassword = () => {
 
         <div className="intro-container">
           <div className="card">
+          <div className="circle"></div>
             <h1>
               🚗 Welcome to DL Easy - Your Smooth Ride to a Driving License!
             </h1>
@@ -171,7 +172,7 @@ const ResetPassword = () => {
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                   />
-                  <span onClick={() => setShowPassword(!showPassword)} className="eye-icon">
+                  <span onClick={() => setShowPassword(!showPassword)} className="eye-btn">
                     {showPassword ? <FaEyeSlash /> : <FaEye />}
                   </span>
                 </div>
@@ -184,7 +185,7 @@ const ResetPassword = () => {
                   />
                   <span
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="eye-icon"
+                    className="eye-btn"
                   >
                     {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                   </span>
