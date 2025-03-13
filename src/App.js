@@ -6,6 +6,7 @@ import './style.css';
 
 import Home from './views/Home';
 import NotFound from './views/not-found';
+import LearnerLicenseForm from './components/LearnerLicenseForm';
 
 const App = () => {
 
@@ -13,6 +14,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/llapply" element={<LearnerLicenseForm />} />
         <Route path="*" element={<NotFound />} />
 
       </Routes>
