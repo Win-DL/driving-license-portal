@@ -1,0 +1,176 @@
+@import url("https://fonts.googleapis.com/css2?family=Monda:wght@400;700&display=swap");
+
+body {
+  font-family: "Monda", sans-serif;
+  background-color: #f4f7f9;
+  margin: 0;
+  padding: 0;
+}
+
+.form-container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 2px solid #899fb6;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header,
+.header1 {
+  color: #333;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.section-header,
+.header1 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #0056b3;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+h4 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* 🔹 Form Section */
+.form-section {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+/* 🔹 Form Row */
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.details-section {
+  padding: 15px;
+  border: 2px dashed #007bff;
+  background-color: #f4f7f9;
+  border-radius: 5px;
+  margin-top: 5px;
+  border-bottom: 2px solid #0056b3;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+}
+
+input,
+select {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: 0.3s ease-in-out;
+}
+
+input:focus,
+select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+}
+
+/* 🔹 Address Section */
+.address-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.address-section {
+  padding: 15px;
+  border: 2px dashed #007bff;
+  background-color: #f4f7f9;
+  border-radius: 5px;
+  margin-top: 15px;
+  border-bottom: 2px solid #0056b3;
+}
+
+/* 🔹 Required Field Styling */
+.required::after {
+  content: " *";
+  color: red;
+}
+
+/* 🔹 Checkbox Container */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+/* 🔹 Document Upload Section */
+.document-upload-section {
+  padding: 15px;
+  border: 2px dashed #007bff;
+  background-color: #f4f7f9;
+  border-radius: 5px;
+  margin-top: 15px;
+  border-bottom: 2px solid #0056b3;
+}
+
+.document-upload-section .note {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* 🔹 Button Styling */
+/* .button-container,
+.thq-button-outline {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+} */
+
+.terms-conditions {
+  margin-top: 20px;
+  padding: 15px;
+}
+
+.terms-text {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.terms-list {
+  padding-left: 20px;
+}
+
+.terms-list li {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+

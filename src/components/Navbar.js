@@ -66,7 +66,7 @@ const Navbar = ({ logoSrc = logo, logoAlt = "Driving License Portal" }) => {
                   <Link to="/llapply" onClick={() => setIsMenuOpen(false)}>Apply for Learner License</Link>
                 </li>
                 <li>
-                  <Link to="/booksession" onClick={() => setIsMenuOpen(false)}>Book your Session</Link>
+                  <Link to="/bookingsessions" onClick={() => setIsMenuOpen(false)}>Book your Session</Link>
                 </li>
                 <li>
                   <Link to="/checkstatus" onClick={() => setIsMenuOpen(false)}>Check Application Status</Link>
