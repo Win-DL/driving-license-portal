@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import logo from "../images/logo.png";
-import intro from "../images/IntroductionNote.png";
 import "../styles/RegisterPage.css";
-import { DiVim } from "react-icons/di";
 
 const RegisterPage = ({ header = "Register", register = "Register" }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -195,6 +193,10 @@ const RegisterPage = ({ header = "Register", register = "Register" }) => {
           </p>
         </section>
       </div>
+      <footer className="lp-footer">
+        <p onClick={() => navigate("/dllogin")}>Driving School Login</p>
+        <p>&copy; 2025 DL Easy. All Rights Reserved.</p>
+      </footer>
     </div>
   );
 };

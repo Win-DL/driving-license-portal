@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import logo from "../images/logo.png";
-import intro from "../images/IntroductionNote.png";
 import "../styles/Loginpage.css";
 import { useNavigate } from "react-router-dom";
 
@@ -140,6 +139,10 @@ const LoginPage = () => {
           </button>
         </section>
       </div>
+      <footer className="lp-footer">
+        <p onClick={() => navigate("/dllogin")}>Driving School Login</p>
+        <p>&copy; 2025 DL Easy. All Rights Reserved.</p>
+      </footer>
     </div>
   );
 };

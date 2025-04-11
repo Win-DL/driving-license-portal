@@ -1,3 +1,17 @@
+body {
+    font-family: 'Monda', sans-serif;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 8px;
+  }
+  
 .register-box {
     display: flex;
     flex-direction: column;
@@ -71,11 +85,4 @@
 
 .login-text span:hover {
     text-decoration: underline;
-}
-
-footer {
-    margin-top: auto;
-    text-align: center;
-    padding: 10px;
-    font-size: 0.9rem;
 }

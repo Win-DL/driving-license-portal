@@ -20,7 +20,6 @@ const BookingSessions = () => {
     preferences: "",
   });
 
-  // Fetch user's location and nearby driving schools
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -32,7 +31,7 @@ const BookingSessions = () => {
         (error) => {
           console.error("Error fetching location:", error);
           alert("Unable to access your location. Using default location.");
-          const defaultLat = 40.7128; // New York (example fallback)
+          const defaultLat = 40.7128;
           const defaultLng = -74.0060;
           setUserLocation({ lat: defaultLat, lng: defaultLng });
           fetchDrivingSchools(defaultLat, defaultLng);
@@ -119,7 +118,7 @@ const BookingSessions = () => {
                 <p className="no-results">No schools found.</p>
               )}
             </div>
-            <button className="back-btn" onClick={handlePrevStep}><FaArrowLeft /> Back</button>
+            <button className="btns back-btn" onClick={handlePrevStep}><FaArrowLeft /> Back</button>
           </div>
         )}
 
@@ -138,10 +137,10 @@ const BookingSessions = () => {
               <label>Driving License (if any):</label>
               <input type="file" name="drivingLicense" accept=".pdf,.png,.jpg,.jpeg" onChange={handleFileUpload} />
             </form>
-            <button className="next-btn" onClick={handleNextStep}>
+            <button className="btns next-btn" onClick={handleNextStep}>
               <FaArrowRight /> Next
             </button>
-            <button className="back-btn" onClick={handlePrevStep}>
+            <button className="btns back-btn" onClick={handlePrevStep}>
               <FaArrowLeft /> Back
             </button>
           </div>
@@ -153,18 +152,18 @@ const BookingSessions = () => {
             <h2>Payment</h2>
             <p>Select Payment Method</p>
             <div className="payment-options">
-              <button className={`payment-btn ${paymentMethod === "PhonePe" ? "selected" : ""}`} onClick={() => setPaymentMethod("PhonePe")}>PhonePe</button>
-              <button className={`payment-btn ${paymentMethod === "Paytm" ? "selected" : ""}`} onClick={() => setPaymentMethod("Paytm")}>Paytm</button>
-              <button className={`payment-btn ${paymentMethod === "GooglePay" ? "selected" : ""}`} onClick={() => setPaymentMethod("GooglePay")}>
+              <button className={`btns payment-btn ${paymentMethod === "PhonePe" ? "selected" : ""}`} onClick={() => setPaymentMethod("PhonePe")}>PhonePe</button>
+              <button className={`btns payment-btn ${paymentMethod === "Paytm" ? "selected" : ""}`} onClick={() => setPaymentMethod("Paytm")}>Paytm</button>
+              <button className={`btns payment-btn ${paymentMethod === "GooglePay" ? "selected" : ""}`} onClick={() => setPaymentMethod("GooglePay")}>
                 Google Pay <FaGooglePay />
               </button>
             </div>
             {paymentMethod && (
-              <button className="confirm-btn">
+              <button className="confirm-btn btns">
                 <FaCheckCircle /> Pay with {paymentMethod}
               </button>
             )}
-            <button className="back-btn" onClick={handlePrevStep}>
+            <button className="back-btn btns" onClick={handlePrevStep}>
               <FaArrowLeft /> Back
             </button>
           </div>

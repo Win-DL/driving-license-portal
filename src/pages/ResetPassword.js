@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaArrowLeft } from "react-icons/fa";
 import logo from "../images/logo.png";
-import intro from "../images/IntroductionNote.png";
 import "../styles/ResetPassword.css";
 
 const ResetPassword = () => {
@@ -197,6 +196,10 @@ const ResetPassword = () => {
             )}
           </section>
       </div>
+      {/* <footer className="lp-footer">
+        <p onClick={() => navigate("/dllogin")}>Driving School Login</p>
+        <p>&copy; 2025 DL Easy. All Rights Reserved.</p>
+      </footer> */}
     </div>
   );
 };

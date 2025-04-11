@@ -51,8 +51,7 @@ body {
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  padding: 0;
-  margin: 0;
+  background-color: white
 }
 
 .intro-container {
@@ -285,9 +284,30 @@ h2 {
   background-color: #d4d4d4;
 }
 
-footer {
-  margin-top: auto;
-  text-align: center;
-  padding: 10px;
-  font-size: 0.9rem;
+.lp-footer {
+  width: 100%;
+  background-color: var(--dl-color-theme-neutral-light);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  color: var(--text-color, #333);
+  padding: 10px 10px;
+  margin-top: 30px;
+  font-size: 14px;
+  border-top: 2px solid var(--border-color, #ddd);
 }
+
+.lp-footer p {
+  margin: 0;
+  cursor: pointer;
+}
+
+.lp-footer p:first-child {
+  font-weight: bold;
+  color: var(--link-color, #007bff);
+  transition: color 0.3s ease-in-out;
+}
+
+.lp-footer p:first-child:hover {
+  color: var(--link-hover-color, #0056b3);
+  text-decoration: underline;
+}
+

@@ -1,0 +1,152 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  font-family: "Arial", sans-serif;
+  background-color: white;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.navbar {
+  width: 100%;
+  display: flex;
+  height: 70px;
+  padding: 0px 15px 0px 15px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--dl-color-theme-neutral-light);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  height: 3rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: #000;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+.dllogin {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 550px;
+  background: #fff;
+  padding-top: 4%;
+  padding-right: 4%;
+}
+
+.dllogin h2 {
+  font-size: 1.5rem;
+  color: #000;
+  font-family: "Monda", sans-serif;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.dllogin label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 540;
+  color: #000;
+  text-align: left;
+  margin-top: 8px;
+}
+
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+.dllogin input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  font-size: 1rem;
+}
+
+.eye-button {
+  position: absolute;
+  right: 12px;
+  transform: translateY(70%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.eye-button:hover {
+  color: #333;
+}
+
+.forgot-password {
+  display: block;
+  font-size: 0.9rem;
+  text-align: right;
+  margin: 10px 0;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+  color: #1a73e8;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 5px;
+  background: #000000d7;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.login-btn:hover {
+  background-color: #000;
+}
+
+.register-text {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.register-text span:hover {
+  text-decoration: underline;
+}
+
+footer {
+  margin-top: auto;
+  text-align: center;
+  padding: 10px;
+  font-size: 0.9rem;
+}
