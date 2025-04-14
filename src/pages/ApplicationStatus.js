@@ -205,6 +205,10 @@ const ApplicationStatus = () => {
           </div>
         </div>
       )}
+
+      <button className="thq-button-outline hero-button2">
+        <span className="thq-body-small">Back</span>
+      </button>
     </div>
   );
 };
