@@ -10,13 +10,15 @@ const LearnerLicenseForm = () => {
       <form className="form-section">
         <div className="form-row">
           <div className="details-section">
-            <label className="required">
-              Name of the Applicant: (As Per Aadhaar)
-            </label>
-            <div className="input-group">
-              <input type="text" placeholder="First Name" />
-              <input type="text" placeholder="Middle Name" />
-              <input type="text" placeholder="Last Name" />
+            <div className="form-row">
+              <label className="required">
+                Name of the Applicant: (As Per Aadhaar)
+              </label>
+              <div className="input-group">
+                <input type="text" placeholder="First Name" />
+                <input type="text" placeholder="Middle Name" />
+                <input type="text" placeholder="Last Name" />
+              </div>
             </div>
 
             <div className="form-row">

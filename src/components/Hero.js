@@ -48,6 +48,7 @@ const Hero = ({
     "Hero Image",
   ],
 }) => {
+
   return (
     <div className="hero-header78">
       <div className="hero-column thq-section-padding thq-section-max-width">
@@ -55,15 +56,21 @@ const Hero = ({
           <h1 className="hero-text1 thq-heading-1">{heading1}</h1>
           <p className="hero-text2 thq-body-large">{content1}</p>
         </div>
+
         <div className="hero-actions">
-          <button className="thq-button-filled hero-button1">
+          <button
+            className="thq-button-filled hero-button1"
+            onClick={() => window.location.href = "/llapply"}
+          >
             <span className="thq-body-small">{action1}</span>
           </button>
+
           <button className="thq-button-outline hero-button2">
             <span className="thq-body-small">{action2}</span>
           </button>
         </div>
       </div>
+
       <div className="hero-content2">
         <div className="hero-image-slider">
           <div className="hero-image-track">
@@ -78,6 +85,7 @@ const Hero = ({
           </div>
         </div>
       </div>
+
       <div className="hero-container2"></div>
     </div>
   );

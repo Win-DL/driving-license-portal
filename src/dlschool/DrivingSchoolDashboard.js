@@ -1,5 +1,5 @@
-import React from "react";
-import "../styles/DrivingSchoolDashboard.css";
+import React, { useState } from "react";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import {
   FiBell,
   FiLogOut,
@@ -7,15 +7,23 @@ import {
   FiCalendar,
   FiMail,
   FiCheckCircle,
+  FiBookOpen,
+  FiClock,
+  FiBarChart2,
+  FiMenu,
 } from "react-icons/fi";
+import "../styles/DrivingSchoolDashboard.css";
 
-const Dashboard = ({
+const DrivingSchoolDashboard = ({
   todaysSessions = 0,
   pendingConfirmations = 0,
   newRegistrations = 0,
   contactRequests = 0,
   upcomingSessions = 0,
 }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [activePage, setActivePage] = useState("dashboard");
+
   const cardsData = [
     {
       icon: <FiCalendar className="card-icon blue" />,
@@ -38,27 +46,96 @@ const Dashboard = ({
       value: contactRequests,
     },
     {
-      icon: <FiCalendar className="card-icon indigo" />,
+      icon: <FiClock className="card-icon indigo" />,
       label: "Upcoming Sessions",
       value: upcomingSessions,
     },
   ];
 
+  const renderContent = () => {
+    switch (activePage) {
+      case "dashboard":
+        return (
+          <section className="cards-section">
+            {cardsData.map((card, index) => (
+              <div className="card" key={index}>
+                {card.icon}
+                <div>
+                  <p className="card-label">{card.label}</p>
+                  <h2 className="card-value">{card.value}</h2>
+                </div>
+              </div>
+            ))}
+          </section>
+        );
+      case "bookings":
+        return <h2>Class Bookings Content</h2>;
+      case "schedule":
+        return <h2>Schedule Manager Content</h2>;
+      case "students":
+        return <h2>Student Records Content</h2>;
+      case "contacts":
+        return <h2>Contact Requests Content</h2>;
+      case "reports":
+        return <h2>Reports Content</h2>;
+      default:
+        return null;
+    }
+  };
+
   return (
-    <div className="dashboard-container">
+    <div className={`dashboard-container ${sidebarOpen ? "" : "collapsed"}`}>
       {/* Sidebar */}
       <aside className="sidebar">
-        <div className="sidebar-header">Driving School</div>
+        <div className="sidebar-header">
+          <button
+            className="toggle-btn"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+          >
+            <FiMenu />
+          </button>
+          <span>Driving School</span>
+        </div>
         <nav className="sidebar-nav">
           <ul>
-            <li className="nav-item active">Dashboard</li>
-            <li className="nav-item">Class Bookings</li>
-            <li className="nav-item">Schedule Manager</li>
-            <li className="nav-item">Student Records</li>
-            <li className="nav-item">Contact Requests</li>
-            <li className="nav-item">Reports</li>
+            <li
+              className={`nav-item ${activePage === "dashboard" ? "active" : ""}`}
+              onClick={() => setActivePage("dashboard")}
+            >
+              <DashboardIcon className="nav-icon" /> <span>Dashboard</span>
+            </li>
+            <li
+              className={`nav-item ${activePage === "bookings" ? "active" : ""}`}
+              onClick={() => setActivePage("bookings")}
+            >
+              <FiBookOpen className="nav-icon" /> <span>Class Bookings</span>
+            </li>
+            <li
+              className={`nav-item ${activePage === "schedule" ? "active" : ""}`}
+              onClick={() => setActivePage("schedule")}
+            >
+              <FiClock className="nav-icon" /> <span>Schedule Manager</span>
+            </li>
+            <li
+              className={`nav-item ${activePage === "students" ? "active" : ""}`}
+              onClick={() => setActivePage("students")}
+            >
+              <FiUsers className="nav-icon" /> <span>Student Records</span>
+            </li>
+            <li
+              className={`nav-item ${activePage === "contacts" ? "active" : ""}`}
+              onClick={() => setActivePage("contacts")}
+            >
+              <FiMail className="nav-icon" /> <span>Contact Requests</span>
+            </li>
+            <li
+              className={`nav-item ${activePage === "reports" ? "active" : ""}`}
+              onClick={() => setActivePage("reports")}
+            >
+              <FiBarChart2 className="nav-icon" /> <span>Reports</span>
+            </li>
             <li className="logout-item">
-              <FiLogOut /> Logout
+              <FiLogOut className="nav-icon" /> <span>Logout</span>
             </li>
           </ul>
         </nav>
@@ -66,30 +143,20 @@ const Dashboard = ({
 
       {/* Main Content */}
       <main className="main-content">
-        {/* Header */}
         <div className="main-header">
-          <h1 className="page-title">Dashboard</h1>
+          <h1 className="page-title">
+            {activePage.charAt(0).toUpperCase() + activePage.slice(1)}
+          </h1>
           <div className="header-right">
             <FiBell className="icon" />
-            <div className="user-badge">Admin</div>
+            <div className="user-badge">👤 Admin</div>
           </div>
         </div>
 
-        {/* Cards Section */}
-        <section className="cards-section">
-          {cardsData.map((card, index) => (
-            <div className="card" key={index}>
-              {card.icon}
-              <div>
-                <p className="card-label">{card.label}</p>
-                <h2 className="card-value">{card.value}</h2>
-              </div>
-            </div>
-          ))}
-        </section>
+        {renderContent()}
       </main>
     </div>
   );
 };
 
-export default Dashboard;
+export default DrivingSchoolDashboard;

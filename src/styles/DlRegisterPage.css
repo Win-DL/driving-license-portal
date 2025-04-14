@@ -1,0 +1,104 @@
+body {
+  font-family: "Monda", sans-serif;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+}
+
+.dl-register-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.dl-main-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 15px;
+}
+
+.dl-register-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 375px;
+  background: #fff;
+  padding: 20px;
+}
+
+.dl-register-box h2 {
+  font-size: 1.5rem;
+  color: #000;
+  font-family: "Monda", sans-serif;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.dl-register-box label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 540;
+  color: #000;
+  margin-top: 10px;
+}
+
+.dl-register-box input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  font-size: 1rem;
+}
+
+.dl-password-wrapper {
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.dl-eye-button {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.dl-eye-button:hover {
+  color: #333;
+}
+
+.dl-register-btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 5px;
+  background: #000000d7;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.dl-register-btn:hover {
+  background-color: #000;
+}
+
+.dl-login-text {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.dl-login-text span:hover {
+  text-decoration: underline;
+}

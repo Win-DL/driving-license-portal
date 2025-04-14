@@ -12,6 +12,7 @@ const Steps = ({
   step4Title = "Book Sessions",
   step4Description = "The platform offers users to book sessions based on availability of slots."
 }) => {
+
   return (
     <section className="steps-container1 thq-section-padding">
       <div className="steps-max-width thq-section-max-width">
@@ -25,7 +26,9 @@ const Steps = ({
               for the test. Hurry Up! Be the first one to get Driving License.
             </p>
             <div className="steps-actions">
-              <button className="thq-button-animated thq-button-filled steps-button">
+              <button className="thq-button-animated thq-button-filled steps-button"
+                onClick={() =>  window.location.href = "/llapply"}
+              >
                 <span className="thq-body-small">Get Started</span>
               </button>
             </div>

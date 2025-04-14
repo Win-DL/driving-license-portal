@@ -11,7 +11,7 @@ const Footer = ({
   content3 = "Designed and Developed by DLEasy Team",
   column1Title = "Quick Links",
   column2Title = "Support",
-  link1 = "Apply for Driving License",
+  link1 = "Apply for Learner License",
   link2 = "Check Application Status",
   link3 = "FAQs",
   link6 = "Contact Us",
@@ -52,8 +52,8 @@ const Footer = ({
                   <a
                     key={index}
                     href={
-                      link === "Apply for Driving License" ? "/apply-driving" :
-                      link === "Check Application Status" ? "/status" :
+                      link === "Apply for Learner License" ? "/llapply" :
+                      link === "Check Application Status" ? "/checkstatus" :
                       link === "FAQs" ? "/faqs" : "#"
                     }
                     className="thq-body-small"

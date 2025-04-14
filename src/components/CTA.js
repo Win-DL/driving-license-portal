@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../styles/CTA.css';
+import { useNavigate } from 'react-router-dom';
 
 const CTA = ({
   heading1 = 'Get Started Today!',
   content1 = "Get your driving license quickly and easily with our streamlined process.",
   action1 = 'Apply Now',
 }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="thq-section-padding">
       <div className="thq-section-max-width">
@@ -18,7 +21,9 @@ const CTA = ({
                 <p className="thq-body-large">{content1}</p>
               </div>
               <div className="cta-actions">
-                <button type="button" className="thq-button-filled cta-button">
+                <button type="button" className="thq-button-filled cta-button"
+                  onClick={() => window.location.href = "/llapply"}
+                 >
                   {action1}
                 </button>
               </div>

@@ -196,10 +196,10 @@ const ResetPassword = () => {
             )}
           </section>
       </div>
-      {/* <footer className="lp-footer">
+      <footer className="lp-footer">
         <p onClick={() => navigate("/dllogin")}>Driving School Login</p>
         <p>&copy; 2025 DL Easy. All Rights Reserved.</p>
-      </footer> */}
+      </footer>
     </div>
   );
 };
