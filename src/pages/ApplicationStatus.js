@@ -17,11 +17,24 @@ const ApplicationStatus = () => {
     try {
       // Simulate API call (Replace with actual API)
       setTimeout(() => {
+        // Testing data for different status cases
         if (appId === "12345" && dob === "2000-01-01") {
           setStatus({
             status: "Approved",
             lastUpdated: "2025-04-10T14:32:00Z",
             remarks: "Application issued successfully.",
+          });
+        } else if (appId === "23456" && dob === "2000-02-02") {
+          setStatus({
+            status: "Pending",
+            lastUpdated: "2025-04-12T09:15:00Z",
+            remarks: "Application under review. Estimated completion in 3-5 business days.",
+          });
+        } else if (appId === "34567" && dob === "2000-03-03") {
+          setStatus({
+            status: "Rejected",
+            lastUpdated: "2025-04-11T16:45:00Z",
+            remarks: "Missing required documentation. Please resubmit with complete documents.",
           });
         } else {
           setError("No application found with provided details.");
@@ -149,18 +162,42 @@ const ApplicationStatus = () => {
                 ? "status-approved"
                 : status.status === "Pending"
                   ? "status-pending"
-                  : "status-other"
+                  : "status-rejected"
             }`}
           >
             <div className="status-header-container">
               {status.status === "Approved" && (
-                <div className="status-badge">
+                <div className="status-badge status-badge-approved">
                   <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth="2"
                       d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+              )}
+              {status.status === "Pending" && (
+                <div className="status-badge status-badge-pending">
+                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+              )}
+              {status.status === "Rejected" && (
+                <div className="status-badge status-badge-rejected">
+                  <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M6 18L18 6M6 6l12 12"
                     />
                   </svg>
                 </div>
