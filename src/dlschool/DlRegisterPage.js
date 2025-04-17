@@ -27,14 +27,10 @@ const DlRegisterPage = ({ header = "Register", register = "Register" }) => {
     <div className="dl-register-container">
       <nav className="navbar">
         <img alt="DL Easy Logo" src={logo} className="logo" />
-        <div className="nav-links">
-          <a href="#">Our Services</a>
-          <a href="#">About</a>
-        </div>
       </nav>
 
-      <div className="dl-main-content">
-        <section className="dl-register-box">
+      <div className="main-content">
+        <div className="dllogin">
           <h2>{header}</h2>
 
           <label htmlFor="fullName">Full Name</label>
@@ -122,7 +118,7 @@ const DlRegisterPage = ({ header = "Register", register = "Register" }) => {
               Sign In
             </span>
           </p>
-        </section>
+        </div>
       </div>
 
       <footer className="dlp-footer">

@@ -44,14 +44,9 @@ const ResetPassword = () => {
     <div className="login-container">
       <nav className="navbar">
         <img alt="DL Easy Logo" src={logo} className="logo" />
-        <div className="nav-links">
-          <a href="#">Our Services</a>
-          <a href="#">About</a>
-        </div>
       </nav>
 
       <div className="content">
-        {/* <img src={intro} alt="Introduction" className="intro" /> */}
 
         <div className="intro-container">
           <div className="card">

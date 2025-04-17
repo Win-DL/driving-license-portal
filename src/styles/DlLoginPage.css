@@ -11,7 +11,6 @@ body {
   background-color: white;
 }
 
-/* NEW: Flex container to push footer down */
 .login-page-container {
   display: flex;
   flex-direction: column;
@@ -22,7 +21,6 @@ body {
   flex: 1;
 }
 
-/* Navbar */
 .navbar {
   width: 100%;
   display: flex;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import logo from "../images/logo.png";
 import "../styles/DlLoginPage.css";
@@ -12,10 +12,7 @@ const DlLoginPage = () => {
     <div className="login-page-container">
       <nav className="navbar">
         <img alt="DL Easy Logo" src={logo} className="logo" />
-        <div className="nav-links">
-          <a href="#">Our Services</a>
-          <a href="#">About</a>
-        </div>
+
       </nav>
   
       <div className="main-content">

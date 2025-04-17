@@ -86,3 +86,39 @@ body {
 .login-text span:hover {
     text-decoration: underline;
 }
+
+@media (max-width: 768px) {
+    .content {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .intro-container {
+      display: none;
+    }
+  
+    .register-box {
+      width: 90%;
+      max-width: none;
+      padding-top: 25%;
+      padding-right: 4%;
+      padding-bottom: 20%;
+    }
+  }
+  @media (max-width: 480px) {
+    .login-box h2 {
+      font-size: 1.2rem;
+    }
+  
+    .login-box input {
+      font-size: 0.9rem;
+    }
+  
+    .login-btn {
+      font-size: 0.9rem;
+    }
+  
+    .google-login {
+      font-size: 0.9rem;
+    }
+  }

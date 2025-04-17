@@ -44,14 +44,11 @@ const DlResetPassword = () => {
     <div className="dl-reset-container">
       <nav className="navbar">
         <img alt="DL Easy Logo" src={logo} className="logo" />
-        <div className="nav-links">
-          <a href="#">Our Services</a>
-          <a href="#">About</a>
-        </div>
+
       </nav>
 
-      <div className="dl-main-content">
-        <section className="dl-reset-box">
+      <div className="main-content">
+        <div className="dllogin">
           {step > 1 && (
             <span onClick={() => setStep(step - 1)} className="dl-back-icon">
               <FaArrowLeft />
@@ -127,7 +124,7 @@ const DlResetPassword = () => {
               </button>
             </>
           )}
-        </section>
+        </div>
       </div>
 
       <footer className="dlp-footer">
