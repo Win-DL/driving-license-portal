@@ -106,15 +106,15 @@ body {
     }
   }
   @media (max-width: 480px) {
-    .login-box h2 {
+    .register-box h2 {
       font-size: 1.2rem;
     }
   
-    .login-box input {
+    .register-box input {
       font-size: 0.9rem;
     }
   
-    .login-btn {
+    .register-btn {
       font-size: 0.9rem;
     }
   
