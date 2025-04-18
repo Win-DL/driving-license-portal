@@ -159,6 +159,7 @@ body {
   margin-top: 30px;
   font-size: 14px;
   border-top: 2px solid var(--border-color, #ddd);
+  text-align: center;
 }
 
 .dlp-footer p {

@@ -12,7 +12,6 @@ const DlLoginPage = () => {
     <div className="login-page-container">
       <nav className="navbar">
         <img alt="DL Easy Logo" src={logo} className="logo" />
-
       </nav>
   
       <div className="main-content">
