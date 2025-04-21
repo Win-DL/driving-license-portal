@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import logo from "../images/logo.png";
@@ -13,11 +13,9 @@ const LoginPage = () => {
     <div className="login-container">
       <nav className="navbar">
         <img alt="DL Easy Logo" src={logo} className="logo" />
-
       </nav>
 
       <div className="content">
-
         <div className="intro-container">
           <div className="card">
             <div className="circle"></div>
@@ -86,7 +84,7 @@ const LoginPage = () => {
           </div>
         </div>
 
-        <section className="login-box">
+        <form className="login-box">
           <h2>Login to your account</h2>
           <label htmlFor="email">Email</label>
           <input type="text" placeholder="Email" id="email" />
@@ -133,7 +131,7 @@ const LoginPage = () => {
           <button className="google-login">
             <FcGoogle size={20} /> Continue with Google
           </button>
-        </section>
+        </form>
       </div>
       <footer className="lp-footer">
         <p onClick={() => navigate("/dllogin")}>Driving School Login</p>
