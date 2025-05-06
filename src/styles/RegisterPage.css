@@ -9,7 +9,7 @@ body {
   font-family: "Arial", sans-serif;
 }
 
-.register-container {
+.user-register-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh; 
@@ -18,7 +18,7 @@ body {
   border-radius: 8px;
 }
 
-.register-box {
+.user-register-box {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -28,7 +28,7 @@ body {
   padding-right: 4%;
 }
 
-.register-box h2 {
+.user-register-box h2 {
   font-size: 1.5rem;
   color: #000;
   font-family: "Monda", sans-serif;
@@ -36,12 +36,12 @@ body {
   text-align: center;
 }
 
-.password-container {
+.user-password-container {
   position: relative;
   width: 100%;
 }
 
-.register-box input {
+.user-register-box input {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
@@ -51,7 +51,7 @@ body {
   font-size: 1rem;
 }
 
-.eye-icon {
+.user-eye-icon {
   position: absolute;
   right: 12px;
   top: 22px;
@@ -62,11 +62,11 @@ body {
   color: #666;
 }
 
-.eye-icon:hover {
+.user-eye-icon:hover {
   color: #333;
 }
 
-.register-btn {
+.user-register-btn {
   width: 100%;
   padding: 10px;
   margin-top: 8px;
@@ -79,31 +79,31 @@ body {
   font-weight: bold;
 }
 
-.register-btn:hover {
+.user-register-btn:hover {
   background-color: #000;
 }
 
-.login-text {
+.user-login-text {
   text-align: center;
   font-size: 0.9rem;
   margin-top: 10px;
 }
 
-.login-text span:hover {
+.user-login-text span:hover {
   text-decoration: underline;
 }
 
 @media (max-width: 768px) {
-  .content {
+  .user-content {
     flex-direction: column;
     align-items: center;
   }
 
-  .intro-container {
+  .user-intro-container {
     display: none;
   }
 
-  .register-box {
+  .user-register-box {
     width: 90%;
     max-width: none;
     padding-top: 25%;
@@ -112,19 +112,19 @@ body {
   }
 }
 @media (max-width: 480px) {
-  .register-box h2 {
+  .user-register-box h2 {
     font-size: 1.2rem;
   }
 
-  .register-box input {
+  .user-register-box input {
     font-size: 0.9rem;
   }
 
-  .register-btn {
+  .user-register-btn {
     font-size: 0.9rem;
   }
 
-  .google-login {
+  .user-google-login {
     font-size: 0.9rem;
   }
 }

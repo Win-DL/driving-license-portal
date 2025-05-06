@@ -63,16 +63,7 @@ const Navbar = ({ logoSrc = logo, logoAlt = "Driving License Portal" }) => {
               </div>
               <ul>
                 <li>
-                  <Link to="/llapply" onClick={() => setIsMenuOpen(false)}>Apply for Learner License</Link>
-                </li>
-                <li>
-                  <Link to="/bookingsessions" onClick={() => setIsMenuOpen(false)}>Book your Session</Link>
-                </li>
-                <li>
-                  <Link to="/checkstatus" onClick={() => setIsMenuOpen(false)}>Check Application Status</Link>
-                </li>
-                <li>
-                  <Link to="/dlapply" onClick={() => setIsMenuOpen(false)}>Apply for Driving License</Link>
+                  <Link to="/userdashboard" onClick={() => setIsMenuOpen(false)}>Get Started</Link>
                 </li>
                 <li className="logout-btn">
                   <Link to="/logout" onClick={() => setIsMenuOpen(false)}>Logout <RiLogoutCircleRLine /> </Link>

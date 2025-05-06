@@ -60,14 +60,19 @@ const Hero = ({
         <div className="hero-actions">
           <button
             className="thq-button-filled hero-button1"
-            onClick={() => window.location.href = "/llapply"}
+            onClick={() => window.location.href = "/userdashboard"}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                window.location.href = "/userdashboard";
+              }
+            }}
           >
             <span className="thq-body-small">{action1}</span>
           </button>
 
-          <button className="thq-button-outline hero-button2">
+          {/* <button className="thq-button-outline hero-button2">
             <span className="thq-body-small">{action2}</span>
-          </button>
+          </button> */}
         </div>
       </div>
 

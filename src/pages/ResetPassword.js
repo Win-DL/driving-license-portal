@@ -41,157 +41,159 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="login-container">
-      <nav className="navbar">
-        <img alt="DL Easy Logo" src={logo} className="logo" />
+    <div className="user-login-container">
+      <nav className="user-navbar">
+        <img alt="DL Easy Logo" src={logo} className="user-logo" />
       </nav>
 
-      <div className="content">
-
-        <div className="intro-container">
-          <div className="card">
-          <div className="circle"></div>
+      <div className="user-content">
+        <div className="user-intro-container">
+          <div className="user-card">
+            <div className="user-circle"></div>
             <h1>
               🚗 Welcome to DL Easy - Your Smooth Ride to a Driving License!
             </h1>
 
-            <p className="intro">
+            <p className="user-intro">
               Unlock a hassle-free path to getting your driving license with DL
               Easy. From learning to certification, we make the entire process
               simple and efficient!
             </p>
 
-            <ul className="feature-list">
+            <ul className="user-feature-list">
               <li>
-                <span className="checkmark">✓</span> Learn & Get Certified -
-                Master driving skills and earn your official certification.
+                <span className="user-checkmark">✓</span> Learn & Get Certified
+                - Master driving skills and earn your official certification.
               </li>
               <li>
-                <span className="checkmark">✓</span> Connect with Experts -
+                <span className="user-checkmark">✓</span> Connect with Experts -
                 Access certified driving schools for professional guidance.
               </li>
               <li>
-                <span className="checkmark">✓</span> Track Your Journey -
+                <span className="user-checkmark">✓</span> Track Your Journey -
                 Schedule lessons, monitor progress, and stay on track.
               </li>
               <li>
-                <span className="checkmark">✓</span> One-Stop Solution - From
-                learner's permit to final license - we've got you covered!
+                <span className="user-checkmark">✓</span> One-Stop Solution -
+                From learner's permit to final license - we've got you covered!
               </li>
             </ul>
 
-            <div className="steps-section">
+            <div className="user-steps-section">
               <h2>
-                <span className="note-icon">📝</span> Get Your Driving License
-                in 5 Easy Steps:
+                <span className="user-note-icon">📝</span> Get Your Driving
+                License in 5 Easy Steps:
               </h2>
 
-              <ol className="steps-list">
+              <ol className="user-steps-list">
                 <li>
-                  <span className="step-number">1</span> Your License, Our
+                  <span className="user-step-number">1</span> Your License, Our
                   Responsibility - We guide you every step of the way.
                 </li>
                 <li>
-                  <span className="step-number">2</span> Simplifying Your
+                  <span className="user-step-number">2</span> Simplifying Your
                   Journey - We handle the paperwork, you focus on driving.
                 </li>
                 <li>
-                  <span className="step-number">3</span> We Manage the Process -
-                  Fast-track your license with our seamless system.
+                  <span className="user-step-number">3</span> We Manage the
+                  Process - Fast-track your license with our seamless system.
                 </li>
                 <li>
-                  <span className="step-number">4</span> Quick & Convenient -
-                  Enjoy a smooth, easy, and efficient process.
+                  <span className="user-step-number">4</span> Quick & Convenient
+                  - Enjoy a smooth, easy, and efficient process.
                 </li>
                 <li>
-                  <span className="step-number">5</span> From Learner to
+                  <span className="user-step-number">5</span> From Learner to
                   Licensed - We ensure you achieve your driving goals.
                 </li>
               </ol>
             </div>
 
-            <p className="cta">
+            <p className="user-cta">
               ✨ Why Wait? Start Your Driving Journey Today!
             </p>
           </div>
         </div>
 
-          <section className="reset-box">
-            {step > 1 && (
-              <span onClick={() => setStep(step - 1)} className="back-icon">
-                <FaArrowLeft />
-              </span>
-            )}
+        <section className="user-reset-box">
+          {step > 1 && (
+            <span onClick={() => setStep(step - 1)} className="user-back-icon">
+              <FaArrowLeft />
+            </span>
+          )}
 
-            {step === 1 && (
-              <>
-                <h2>Reset Password</h2>
-                <p>Enter your registered email to receive an OTP</p>
+          {step === 1 && (
+            <>
+              <h2>Reset Password</h2>
+              <p>Enter your registered email to receive an OTP</p>
+              <input
+                type="email"
+                placeholder="Enter Registered Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <button className="user-reset-btn" onClick={handleSendOtp}>
+                Send OTP
+              </button>
+            </>
+          )}
+
+          {step === 2 && (
+            <>
+              <h2>Verify OTP</h2>
+              <p>Enter the OTP sent to your email</p>
+              <input
+                type="text"
+                placeholder="Enter OTP"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+              />
+              {otpError && <p className="user-error-text">{otpError}</p>}
+              <button className="user-reset-btn" onClick={handleVerifyOtp}>
+                Verify OTP
+              </button>
+            </>
+          )}
+
+          {step === 3 && (
+            <>
+              <h2>Set New Password</h2>
+              <div className="user-password-wrapper">
                 <input
-                  type="email"
-                  placeholder="Enter Registered Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  type={showPassword ? "text" : "password"}
+                  placeholder="New Password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
                 />
-                <button className="reset-btn" onClick={handleSendOtp}>
-                  Send OTP
-                </button>
-              </>
-            )}
-
-            {step === 2 && (
-              <>
-                <h2>Verify OTP</h2>
-                <p>Enter the OTP sent to your email</p>
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="user-eye-btn"
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
+              <div className="user-password-wrapper">
                 <input
-                  type="text"
-                  placeholder="Enter OTP"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="Confirm New Password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                 />
-                {otpError && <p className="error-text">{otpError}</p>}
-                <button className="reset-btn" onClick={handleVerifyOtp}>
-                  Verify OTP
-                </button>
-              </>
-            )}
-
-            {step === 3 && (
-              <>
-                <h2>Set New Password</h2>
-                <div className="password-wrapper">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="New Password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                  />
-                  <span onClick={() => setShowPassword(!showPassword)} className="eye-btn">
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                  </span>
-                </div>
-                <div className="password-wrapper">
-                  <input
-                    type={showConfirmPassword ? "text" : "password"}
-                    placeholder="Confirm New Password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                  />
-                  <span
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="eye-btn"
-                  >
-                    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-                  </span>
-                </div>
-                <button className="reset-btn" onClick={handleResetPassword}>
-                  Reset Password
-                </button>
-              </>
-            )}
-          </section>
+                <span
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="user-eye-btn"
+                >
+                  {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
+              <button className="user-reset-btn" onClick={handleResetPassword}>
+                Reset Password
+              </button>
+            </>
+          )}
+        </section>
       </div>
-      <footer className="lp-footer">
+      <footer className="user-lp-footer">
         <p onClick={() => navigate("/dllogin")}>Driving School Login</p>
         <p>&copy; 2025 DL Easy. All Rights Reserved.</p>
       </footer>

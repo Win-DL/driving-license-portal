@@ -1,7 +1,7 @@
 .features2-container2 {
     width: 100%;
     display: grid;
-    grid-gap: var(--dl-space-space-fiveunits);
+    grid-gap: var(--dl-space-space-twounits);
     position: relative;
     grid-template-columns: 1fr 1fr;
   }
@@ -38,7 +38,6 @@
   }
    
   .features2-content1 {
-    gap: 16px;
     flex: 1;
     display: flex;
     overflow: hidden;
@@ -72,7 +71,7 @@
   }
    
   .features2-content2 {
-    gap: 16px;
+    /* gap: 1px; */
     flex: 1;
     display: flex;
     overflow: hidden;
@@ -106,7 +105,7 @@
   }
    
   .features2-content3 {
-    gap: 16px;
+    /* gap: 16px; */
     flex: 1;
     display: flex;
     overflow: hidden;

@@ -1,137 +1,213 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import logo from "../images/logo.png";
 import "../styles/DlRegisterPage.css";
 
-const DlRegisterPage = ({ header = "Register", register = "Register" }) => {
+const DlRegisterPage = () => {
+  const [formData, setFormData] = useState({
+    schoolName: "",
+    licenseNumber: "",
+    contactPerson: "",
+    phone: "",
+    email: "",
+    address: "",
+    password: "",
+    confirmPassword: ""
+  });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [email, setEmail] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
+  const [otp, setOtp] = useState("");
   const navigate = useNavigate();
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
   const handleSendOtp = () => {
-    if (email) {
+    if (formData.email) {
       setOtpSent(true);
       alert("OTP sent to your email!");
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Add registration logic here
+    alert("Registration submitted successfully!");
+    navigate("/dldashboard");
+  };
+
   return (
     <div className="dl-register-container">
-      <nav className="navbar">
-        <img alt="DL Easy Logo" src={logo} className="logo" />
+      <nav className="dl2-navbar">
+        <img alt="DL Easy Logo" src={logo} className="dl2-logo" />
       </nav>
 
-      <div className="main-content">
-        <div className="dllogin">
-          <h2>{header}</h2>
+      <div className="dl-main-content">
+        <form className="dl-register-form" onSubmit={handleSubmit}>
+          <h2>Driving School Registration</h2>
 
-          <label htmlFor="fullName">Full Name</label>
-          <input
-            id="fullName"
-            type="text"
-            placeholder="Full Name"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-          />
-
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            disabled={otpSent}
-          />
-
-          <label htmlFor="password">New Password</label>
-          <div className="dl-password-wrapper">
+          <div className="dl-form-group">
+            <label htmlFor="schoolName">School Name</label>
             <input
-              id="password"
-              type={showPassword ? "text" : "password"}
-              placeholder="New Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              id="schoolName"
+              name="schoolName"
+              type="text"
+              placeholder="Official school name"
+              value={formData.schoolName}
+              onChange={handleChange}
+              required
             />
-            <button
-              type="button"
-              className="dl-eye-button"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
           </div>
 
-          <label htmlFor="confirmPassword">Confirm New Password</label>
-          <div className="dl-password-wrapper">
+          <div className="dl-form-group">
+            <label htmlFor="licenseNumber">License Number</label>
             <input
-              id="confirmPassword"
-              type={showConfirmPassword ? "text" : "password"}
-              placeholder="Confirm Password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              id="licenseNumber"
+              name="licenseNumber"
+              type="text"
+              placeholder="Government issued license number"
+              value={formData.licenseNumber}
+              onChange={handleChange}
+              required
             />
-            <button
-              type="button"
-              className="dl-eye-button"
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-            >
-              {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-            </button>
+          </div>
+
+          <div className="dl-form-group">
+            <label htmlFor="contactPerson">Contact Person</label>
+            <input
+              id="contactPerson"
+              name="contactPerson"
+              type="text"
+              placeholder="Authorized representative"
+              value={formData.contactPerson}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="dl-form-group">
+            <label htmlFor="phone">Phone Number</label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              placeholder="Primary contact number"
+              value={formData.phone}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="dl-form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Official email address"
+              value={formData.email}
+              onChange={handleChange}
+              disabled={otpSent}
+              required
+            />
+          </div>
+
+          <div className="dl-form-group">
+            <label htmlFor="address">Address</label>
+            <input
+              id="address"
+              name="address"
+              type="text"
+              placeholder="Business location"
+              value={formData.address}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="dl-form-group">
+            <label htmlFor="password">Create Password</label>
+            <div className="dl-password-wrapper">
+              <input
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Minimum 8 characters"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+              <button
+                type="button"
+                className="dl-eye-button"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+          </div>
+
+          <div className="dl-form-group">
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <div className="dl-password-wrapper">
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type={showConfirmPassword ? "text" : "password"}
+                placeholder="Re-enter your password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                required
+              />
+              <button
+                type="button"
+                className="dl-eye-button"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
           </div>
 
           {otpSent && (
-            <>
-              <label htmlFor="otp">Enter OTP</label>
+            <div className="dl-form-group">
+              <label htmlFor="otp">OTP Verification</label>
               <input
                 id="otp"
                 type="text"
-                placeholder="Enter OTP"
+                placeholder="Enter 6-digit OTP"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
+                required
               />
-            </>
+            </div>
           )}
 
           <button
-            type="button"
+            type={otpSent ? "submit" : "button"}
             className="dl-register-btn"
             onClick={!otpSent ? handleSendOtp : undefined}
           >
-            {otpSent ? register : "Send OTP"}
+            {otpSent ? "Complete Registration" : "Send OTP"}
           </button>
 
           <p className="dl-login-text">
-            Have an account?{" "}
-            <span
-              onClick={() => navigate("/dllogin")}
-              style={{ color: "#1A73E8", cursor: "pointer" }}
-            >
-              Sign In
-            </span>
+            Already registered?{" "}
+            <span onClick={() => navigate("/dllogin")}>Sign In</span>
           </p>
-        </div>
+        </form>
       </div>
 
-      <footer className="dlp-footer">
+      <footer className="dl2-dlp-footer">
         <p onClick={() => navigate("/")}>User Login</p>
         <p>&copy; 2025 DL Easy. All Rights Reserved.</p>
       </footer>
     </div>
   );
-};
-
-DlRegisterPage.propTypes = {
-  header: PropTypes.string,
-  register: PropTypes.string,
 };
 
 export default DlRegisterPage;

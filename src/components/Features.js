@@ -6,20 +6,20 @@ import image3 from '../images/image3.jpg';
 
 const features = [
   {
-    title: 'Modern & Accessible UI',
-    description: 'Clean and professional design with a calm color combination, ensuring a great user experience.',
+    title: 'Connect with Verified Driving Schools',
+    description: 'Browse and enroll in certified driving schools near you using Google Maps integration. Get access to ratings, contact info, and course details — all in one place.',
     imgSrc: image1,
-    imgAlt: 'Image showing modern and accessible UI design',
+    // imgAlt: 'Image showing modern and accessible UI design',
   },
   {
-    title: 'User-Friendly Navigation',
-    description: 'Simple and clear layout with dedicated sections for each service.',
+    title: 'Manage Class Schedule & Progress',
+    description: 'Track your driving lessons with an interactive calendar. See upcoming sessions, completed classes, and your learning milestones at a glance.',
     imgSrc: image2,
-    imgAlt: 'Image illustrating user-friendly navigation',
+    // imgAlt: 'Image illustrating user-friendly navigation',
   },
   {
     title: 'Online Application Submission',
-    description: 'Users can apply for Driving License without visiting an office.',
+    description: 'Users can apply for Driving License without visiting an office. After completing your training, apply for a learner or permanent license directly through the portal. Upload required documents and track your application status in real time.',
     imgSrc: image3,
     imgAlt: 'Image depicting online application submission',
   },
@@ -47,8 +47,8 @@ const Features = () => {
                 {activeTab === index && <div className={`features2-container${index + 3}`}></div>}
               </div>
               <div className={`features2-content${index + 1}`}>
-                <h2 className="thq-heading-2">{feature.title}</h2>
-                <span className="thq-body-small">{feature.description}</span>
+                <h2 className="thq-heading-3">{feature.title}</h2>
+                <span className="thq-body-xsmall">{feature.description}</span>
               </div>
             </div>
           ))}

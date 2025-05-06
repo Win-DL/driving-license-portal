@@ -6,90 +6,56 @@ import logo from "../images/logo.png";
 const Footer = ({
   logoSrc = logo,
   logoAlt = "Driving License Portal Logo",
-  action1 = "Report a Bug",
-  content2 = "© 2025 Driving License Portal. All rights reserved.",
-  content3 = "Designed and Developed by DLEasy Team",
-  column1Title = "Quick Links",
-  column2Title = "Support",
-  link1 = "Apply for Learner License",
-  link2 = "Check Application Status",
-  link3 = "FAQs",
-  link6 = "Contact Us",
-  link7 = "About Us",
-  link8 = "Privacy Policy",
-  link9 = "Terms and Conditions"
+  copyrightText = "© 2025 Driving License Portal. All rights reserved.",
+  developerText = "Designed and Developed by DLEasy Team",
+  usefulLinks = [
+    { text: "Contact Support", url: "/contact" },
+    { text: "Privacy Policy", url: "/privacy" },
+    { text: "Terms of Service", url: "/terms" },
+    { text: "Help Center", url: "/help" }
+  ]
 }) => {
   return (
-    <footer className="footer-footer1 thq-section-padding">
-      <div className="footer-max-width thq-section-max-width">
+    <footer className="footer-footer1">
+      <div className="footer-max-width">
         <div className="footer-content">
-          <div className="footer-newsletter">
-            {/* <img alt={logoAlt} src={logoSrc} className="footer-image1" /> */}
-            <span className="thq-body-small">Reach Us.</span>
-            <div className="footer-actions">
-              <div className="footer-form">
-                <div className="footer-container">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="footer-text-input thq-input"
-                  />
-                </div>
-                <button className="thq-button-outline footer-button">
-                  <span className="thq-body-small">{action1}</span>
-                </button>
-              </div>
-              <span className="footer-content2 thq-body-small">{content2}</span>
-            </div>
+          <div className="footer-brand-section">
+            <img alt={logoAlt} src={logoSrc} className="footer-logo" />
+            <p className="footer-tagline">
+              Your one-stop portal for all driving license needs
+            </p>
           </div>
-          <div className="footer-links">
-            <div className="footer-column1">
-              <strong className="thq-body-large footer-column1-title">
-                {column1Title}
-              </strong>
-              <div className="footer-footer-links1">
-                {[link1, link2, link3].map((link, index) => (
-                  <a
-                    key={index}
-                    href={
-                      link === "Apply for Learner License" ? "/llapply" :
-                      link === "Check Application Status" ? "/checkstatus" :
-                      link === "FAQs" ? "/faqs" : "#"
-                    }
-                    className="thq-body-small"
-                  >
-                    {link}
-                  </a>
+
+          <div className="footer-links-section">
+            <div className="footer-links-column">
+              <h3 className="footer-column-title">Quick Links</h3>
+              <ul className="footer-links-list">
+                {usefulLinks.map((link, index) => (
+                  <li key={index}>
+                    <a href={link.url} className="footer-link">
+                      {link.text}
+                    </a>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
-            <div className="footer-column2">
-              <strong className="thq-body-large footer-column2-title">
-                {column2Title}
-              </strong>
-              <div className="footer-footer-links2">
-                {[link6, link7, link8, link9].map((link, index) => (
-                  <a
-                    key={index}
-                    href={
-                      link === "Contact Us" ? "/contact" :
-                      link === "About Us" ? "/about" :
-                      link === "Privacy Policy" ? "/privacy" :
-                      link === "Terms and Conditions" ? "/terms" : "#"
-                    }
-                    className="thq-body-small"
-                  >
-                    {link}
-                  </a>
-                ))}
+
+            <div className="footer-links-column">
+              <h3 className="footer-column-title">Contact</h3>
+              <div className="footer-contact-info">
+                <p>Email: drivinglicense6699@gmail.com</p>
+                <p>Phone: +91 9876543210</p>
+                
               </div>
             </div>
           </div>
         </div>
-        <div className="footer-credits">
-          <div className="thq-divider-horizontal"></div>
-          <div className="footer-row">
-            <span className="thq-body-small">{content3}</span>
+
+        <div className="footer-bottom">
+          <div className="footer-divider"></div>
+          <div className="footer-legal">
+            <p className="footer-copyright">{copyrightText}</p>
+            <p className="footer-developer">{developerText}</p>
           </div>
         </div>
       </div>
@@ -100,18 +66,14 @@ const Footer = ({
 Footer.propTypes = {
   logoSrc: PropTypes.string,
   logoAlt: PropTypes.string,
-  action1: PropTypes.string,
-  content2: PropTypes.string,
-  content3: PropTypes.string,
-  column1Title: PropTypes.string,
-  column2Title: PropTypes.string,
-  link1: PropTypes.string,
-  link2: PropTypes.string,
-  link3: PropTypes.string,
-  link6: PropTypes.string,
-  link7: PropTypes.string,
-  link8: PropTypes.string,
-  link9: PropTypes.string
+  copyrightText: PropTypes.string,
+  developerText: PropTypes.string,
+  usefulLinks: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string,
+      url: PropTypes.string
+    })
+  )
 };
 
 export default Footer;

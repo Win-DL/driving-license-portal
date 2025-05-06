@@ -9,19 +9,19 @@ const DlLoginPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="login-page-container">
-      <nav className="navbar">
-        <img alt="DL Easy Logo" src={logo} className="logo" />
+    <div className="dl2-login-page-container">
+      <nav className="dl2-navbar">
+        <img alt="DL Easy Logo" src={logo} className="dl2-logo" />
       </nav>
   
-      <div className="main-content">
-        <div className="dllogin">
+      <div className="dl2-main-content">
+        <div className="dl2-dllogin">
           <h2>Login to your account</h2>
           <label htmlFor="email">Email</label>
           <input type="text" placeholder="Email" id="email" />
   
           <label htmlFor="password">Password</label>
-          <div className="password-container">
+          <div className="dl2-password-container">
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Password"
@@ -29,14 +29,14 @@ const DlLoginPage = () => {
             />
             <button
               type="button"
-              className="eye-button"
+              className="dl2-eye-button"
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
   
-          <p className="forgot-password">
+          <p className="dl2-forgot-password">
             <span
               onClick={() => navigate("/dlreset")}
               style={{ color: "#1A73E8", cursor: "pointer" }}
@@ -45,11 +45,11 @@ const DlLoginPage = () => {
             </span>
           </p>
   
-          <button onClick={() => navigate("/dashboard")} className="login-btn">
+          <button onClick={() => navigate("/dldashboard")} className="dl2-login-btn">
             Login
           </button>
   
-          <p className="register-text">
+          <p className="dl2-register-text">
             Don't have an account?{" "}
             <span
               onClick={() => navigate("/dlregister")}
@@ -61,7 +61,7 @@ const DlLoginPage = () => {
         </div>
       </div>
   
-      <footer className="dlp-footer">
+      <footer className="dl2-dlp-footer">
         <p onClick={() => navigate("/")}>User Login</p>
         <p>&copy; 2025 DL Easy. All Rights Reserved.</p>
       </footer>

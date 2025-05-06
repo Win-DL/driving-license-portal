@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../styles/CTA.css';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const CTA = ({
   heading1 = 'Get Started Today!',
-  content1 = "Get your driving license quickly and easily with our streamlined process.",
+  content1 = "Get your driving license quickly and easily with our streamlined process. Empowering citizens with a streamlined process to learn driving and obtain their licenses efficiently.",
   action1 = 'Apply Now',
 }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return (
     <div className="thq-section-padding">
@@ -22,7 +22,7 @@ const CTA = ({
               </div>
               <div className="cta-actions">
                 <button type="button" className="thq-button-filled cta-button"
-                  onClick={() => window.location.href = "/llapply"}
+                  onClick={() => window.location.href = "/userdashboard"}
                  >
                   {action1}
                 </button>

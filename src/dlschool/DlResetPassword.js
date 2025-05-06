@@ -41,16 +41,15 @@ const DlResetPassword = () => {
   };
 
   return (
-    <div className="dl-reset-container">
-      <nav className="navbar">
-        <img alt="DL Easy Logo" src={logo} className="logo" />
-
+    <div className="dl2-reset-container">
+      <nav className="dl2-navbar">
+        <img alt="DL Easy Logo" src={logo} className="dl2-logo" />
       </nav>
 
-      <div className="main-content">
-        <div className="dllogin">
+      <div className="dl2-main-content">
+        <div className="dl2-dllogin">
           {step > 1 && (
-            <span onClick={() => setStep(step - 1)} className="dl-back-icon">
+            <span onClick={() => setStep(step - 1)} className="dl2-back-icon">
               <FaArrowLeft />
             </span>
           )}
@@ -65,7 +64,7 @@ const DlResetPassword = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <button className="dl-reset-btn" onClick={handleSendOtp}>
+              <button className="dl2-reset-btn" onClick={handleSendOtp}>
                 Send OTP
               </button>
             </>
@@ -81,8 +80,8 @@ const DlResetPassword = () => {
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
               />
-              {otpError && <p className="dl-error-text">{otpError}</p>}
-              <button className="dl-reset-btn" onClick={handleVerifyOtp}>
+              {otpError && <p className="dl2-error-text">{otpError}</p>}
+              <button className="dl2-reset-btn" onClick={handleVerifyOtp}>
                 Verify OTP
               </button>
             </>
@@ -91,7 +90,7 @@ const DlResetPassword = () => {
           {step === 3 && (
             <>
               <h2>Set New Password</h2>
-              <div className="dl-password-wrapper">
+              <div className="dl2-password-wrapper">
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="New Password"
@@ -100,12 +99,12 @@ const DlResetPassword = () => {
                 />
                 <span
                   onClick={() => setShowPassword(!showPassword)}
-                  className="dl-eye-btn"
+                  className="dl2-eye-btn"
                 >
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </span>
               </div>
-              <div className="dl-password-wrapper">
+              <div className="dl2-password-wrapper">
                 <input
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm New Password"
@@ -114,12 +113,12 @@ const DlResetPassword = () => {
                 />
                 <span
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="dl-eye-btn"
+                  className="dl2-eye-btn"
                 >
                   {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                 </span>
               </div>
-              <button className="dl-reset-btn" onClick={handleResetPassword}>
+              <button className="dl2-reset-btn" onClick={handleResetPassword}>
                 Reset Password
               </button>
             </>
@@ -127,7 +126,7 @@ const DlResetPassword = () => {
         </div>
       </div>
 
-      <footer className="dlp-footer">
+      <footer className="dl2-dlp-footer">
         <p onClick={() => navigate("/")}>User Login</p>
         <p>&copy; 2025 DL Easy. All Rights Reserved.</p>
       </footer>
