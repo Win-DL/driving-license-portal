@@ -71,8 +71,8 @@ const DrivingSchoolDashboard = () => {
     email: "info@elitedriving.com",
     established: "2015",
     pricing: {
-      twoWheeler: 15000,
-      fourWheeler: 25000
+      twoWheeler: 2500,
+      fourWheeler: 4000
     }
   });
 
@@ -991,7 +991,7 @@ const DrivingSchoolDashboard = () => {
           <button className="ds-toggle-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>
             <FiMenu />
           </button>
-          <span className="ds-school-name">Elite Driving School</span>
+          <span className="ds-school-name">{schoolDetails.name}</span>
         </div>
 
         <nav className="ds-sidebar-nav">

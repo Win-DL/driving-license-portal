@@ -8,8 +8,7 @@ const Contact = ({
   content2 = "Our customer support team is available to help you with any queries.",
   content3 = "For general inquiries or feedback, you can also use the contact form below.",
   email1 = "drivinglicense6699@gmail.com",
-  phone = "+1 (555) 123-4567",
-  address = "123 Driving School Ave, City, State 12345"
+  phone = "+91 9876543210",
 }) => {
   const [formData, setFormData] = useState({
     name: "",
@@ -17,7 +16,7 @@ const Contact = ({
     message: ""
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [activeTab, setActiveTab] = useState("email"); // 'email', 'phone', 'form'
+  const [activeTab, setActiveTab] = useState("email"); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +28,7 @@ const Contact = ({
     console.log("Form submitted:", formData);
     setIsSubmitted(true);
     // Here you would typically send the data to your backend
-    setTimeout(() => setIsSubmitted(false), 3000); // Reset after 3 seconds
+    setTimeout(() => setIsSubmitted(false), 6000); // Reset after 3 seconds
     setFormData({ name: "", email: "", message: "" });
   };
 

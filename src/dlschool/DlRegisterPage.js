@@ -11,10 +11,25 @@ const DlRegisterPage = () => {
     contactPerson: "",
     phone: "",
     email: "",
+    twowheelerPrice: "",
+    fourwheelerPrice: "",
     address: "",
+    city: "",
+    state: "",
+    pincode: "",
+    availableSlots: {
+      morning: false,
+      afternoon: false,
+      evening: false
+    },
+    supportedVehicles: {
+      twoWheeler: false,
+      fourWheeler: false
+    },
     password: "",
     confirmPassword: ""
   });
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
@@ -24,6 +39,16 @@ const DlRegisterPage = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleCheckboxChange = (type, field) => {
+    setFormData(prev => ({
+      ...prev,
+      [type]: {
+        ...prev[type],
+        [field]: !prev[type][field]
+      }
+    }));
   };
 
   const handleSendOtp = () => {
@@ -117,16 +142,130 @@ const DlRegisterPage = () => {
           </div>
 
           <div className="dl-form-group">
+            <label htmlFor="price">Two Wheeler Price (₹)</label>
+            <input
+              id="twowheelerPrice"
+              name="twowheelerPrice"
+              type="number"
+              placeholder="Two Wheeler Training price"
+              value={formData.twowheelerPrice}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="dl-form-group">
+            <label htmlFor="price">Four Wheeler Price (₹)</label>
+            <input
+              id="fourwheelerPrice"
+              name="fourwheelerPrice"
+              type="number"
+              placeholder="Four Wheeler Training price (If Service Available)"
+              value={formData.fourwheelerPrice}
+              onChange={handleChange}
+              
+            />
+          </div>
+
+          <div className="dl-form-group">
             <label htmlFor="address">Address</label>
             <input
               id="address"
               name="address"
               type="text"
-              placeholder="Business location"
+              placeholder="Street address"
               value={formData.address}
               onChange={handleChange}
               required
             />
+          </div>
+
+          <div className="dl-form-row">
+            <div className="dl-form-group">
+              <label htmlFor="city">City</label>
+              <input
+                id="city"
+                name="city"
+                type="text"
+                value={formData.city}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="dl-form-group">
+              <label htmlFor="state">State</label>
+              <input
+                id="state"
+                name="state"
+                type="text"
+                value={formData.state}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="dl-form-group">
+              <label htmlFor="pincode">Pincode</label>
+              <input
+                id="pincode"
+                name="pincode"
+                type="text"
+                value={formData.pincode}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="dl-form-group">
+            <label>Available Time Slots</label>
+            <div className="dl-checkbox-group">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={formData.availableSlots.morning}
+                  onChange={() => handleCheckboxChange("availableSlots", "morning")}
+                />
+                Morning
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={formData.availableSlots.afternoon}
+                  onChange={() => handleCheckboxChange("availableSlots", "afternoon")}
+                />
+                Afternoon
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={formData.availableSlots.evening}
+                  onChange={() => handleCheckboxChange("availableSlots", "evening")}
+                />
+                Evening
+              </label>
+            </div>
+          </div>
+
+          <div className="dl-form-group">
+            <label>Supported Vehicles</label>
+            <div className="dl-checkbox-group">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={formData.supportedVehicles.twoWheeler}
+                  onChange={() => handleCheckboxChange("supportedVehicles", "twoWheeler")}
+                />
+                Two Wheeler
+              </label>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={formData.supportedVehicles.fourWheeler}
+                  onChange={() => handleCheckboxChange("supportedVehicles", "fourWheeler")}
+                />
+                Four Wheeler
+              </label>
+            </div>
           </div>
 
           <div className="dl-form-group">

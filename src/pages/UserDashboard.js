@@ -1,22 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { FiHome, FiBook, FiCalendar, FiCreditCard, FiFileText, FiDownload, FiUser, FiLock, FiArrowLeft, FiCheck, FiX, FiClock, FiEdit, FiEye, FiMessageSquare } from 'react-icons/fi';
-import { RiLogoutCircleRLine } from 'react-icons/ri';
+import {
+  FiHome, FiBook, FiCalendar, FiCreditCard, FiFileText,
+  FiDownload, FiUser, FiLock, FiArrowLeft, FiCheck, FiX, FiClock,
+  FiEdit, FiEye, FiMessageSquare, FiChevronDown, FiMail, FiPhone
+} from 'react-icons/fi';
 import './UserDashboard.css';
 
 const UserDashboard = () => {
   const [currentView, setCurrentView] = useState('schoolSelection');
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+
   // User data
   const [user] = useState({
     name: 'Aatif',
     email: 'aatif@example.com',
+    phone: '9876543210'
   });
-  
+
   const [schools, setSchools] = useState([]);
   const [selectedSchool, setSelectedSchool] = useState(null);
   const [loadingSchools, setLoadingSchools] = useState(true);
-  
+
   const [formData, setFormData] = useState(() => {
     const savedData = localStorage.getItem('userDrivingLicenseFormData');
     return savedData ? JSON.parse(savedData) : {
@@ -48,7 +53,6 @@ const UserDashboard = () => {
         pinCode: ''
       },
       sameAsPermanent: false,
-      messageToSchool: '',
       ageProof: null,
       addressProof: null,
       photo: null,
@@ -58,10 +62,10 @@ const UserDashboard = () => {
       submitted: false
     };
   });
-  
+
   const [formErrors, setFormErrors] = useState({});
   const [applicationId] = useState(() => localStorage.getItem('userApplicationId') || '');
-  
+
   // Payment state
   const [paymentStatus, setPaymentStatus] = useState(() => {
     const savedStatus = localStorage.getItem('userPaymentStatus');
@@ -70,26 +74,43 @@ const UserDashboard = () => {
       processing: false,
       success: false,
       amount: 0,
-      date: ''
+      date: '',
+      transactionId: ''
     };
   });
-  
+
   // Training progress
   const [progress, setProgress] = useState(() => {
     const savedProgress = localStorage.getItem('userDrivingLicenseProgress');
-    return savedProgress ? JSON.parse(savedProgress) : {
+    if (savedProgress) return JSON.parse(savedProgress);
+
+    // Only initialize progress if form is submitted and payment is completed
+    const savedFormData = localStorage.getItem('userDrivingLicenseFormData');
+    const savedPaymentStatus = localStorage.getItem('userPaymentStatus');
+
+    if (!savedFormData || !savedPaymentStatus) return null;
+
+    const parsedFormData = JSON.parse(savedFormData);
+    const parsedPaymentStatus = JSON.parse(savedPaymentStatus);
+
+    if (!parsedFormData.submitted || !parsedPaymentStatus.completed) return null;
+
+    // Calculate start date from courseStartDate
+    const startDate = parsedFormData.courseStartDate ? new Date(parsedFormData.courseStartDate) : new Date();
+
+    return {
       totalClasses: 30,
-      attendedClasses: 30,
+      attendedClasses: 0,
       classes: Array(30).fill().map((_, i) => ({
-        id: i+1,
-        date: new Date(Date.now() + (i * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
-        time: ['09:00 AM', '11:00 AM', '02:00 PM', '04:00 PM'][i%4],
-        attended: true
+        id: i + 1,
+        date: new Date(startDate.getTime() + (i * 24 * 60 * 60 * 1000)).toISOString().split('T')[0],
+        time: ['09:00 AM', '11:00 AM', '02:00 PM', '04:00 PM'][i % 4],
+        attended: false
       })),
-      completed: true
+      completed: false
     };
   });
-  
+
   // License application state
   const [licenseStatus, setLicenseStatus] = useState(() => {
     const savedStatus = localStorage.getItem('userLicenseStatus');
@@ -110,17 +131,18 @@ const UserDashboard = () => {
   const [modalTitle, setModalTitle] = useState('');
 
   // Calculate progress percentage
-  const progressPercentage = Math.round(
+  const progressPercentage = progress ? Math.round(
     (progress.attendedClasses / progress.totalClasses) * 100
-  );
+  ) : 0;
 
   // Load initial data
   useEffect(() => {
     const fetchSchools = async () => {
       try {
-        if (!selectedSchool && !formData.submitted && !paymentStatus.completed) {
+        // Only fetch schools if no school is selected and payment isn't completed
+        if (!paymentStatus.completed) {
           await new Promise(resolve => setTimeout(resolve, 1000));
-          
+
           const mockSchools = [
             {
               id: 1,
@@ -159,7 +181,7 @@ const UserDashboard = () => {
               supportedVehicles: ['fourWheeler']
             }
           ];
-          
+
           setSchools(mockSchools);
         }
         setLoadingSchools(false);
@@ -168,9 +190,9 @@ const UserDashboard = () => {
         setLoadingSchools(false);
       }
     };
-    
+
     fetchSchools();
-  }, [selectedSchool, formData.submitted, paymentStatus.completed]);
+  }, [paymentStatus.completed]);
 
   // Persist state changes to localStorage
   useEffect(() => {
@@ -178,7 +200,9 @@ const UserDashboard = () => {
   }, [formData]);
 
   useEffect(() => {
-    localStorage.setItem('userDrivingLicenseProgress', JSON.stringify(progress));
+    if (progress) {
+      localStorage.setItem('userDrivingLicenseProgress', JSON.stringify(progress));
+    }
   }, [progress]);
 
   useEffect(() => {
@@ -188,6 +212,69 @@ const UserDashboard = () => {
   useEffect(() => {
     localStorage.setItem('userLicenseStatus', JSON.stringify(licenseStatus));
   }, [licenseStatus]);
+  useEffect(() => {
+    if (paymentStatus.completed && !progress) {
+      const startDate = formData.courseStartDate ? new Date(formData.courseStartDate) : new Date();
+      
+      while (startDate.getDay() === 0 || startDate.getDay() === 6) {
+        startDate.setDate(startDate.getDate() + 1);
+      }
+  
+      const classes = [];
+      let currentDate = new Date(startDate);
+      let classCount = 0;
+      
+      while (classCount < 30) {
+        const dayOfWeek = currentDate.getDay();
+        
+        if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+          classes.push({
+            id: classCount + 1,
+            date: currentDate.toISOString().split('T')[0],
+            time: ['09:00 AM', '11:00 AM', '02:00 PM', '04:00 PM'][classCount % 4],
+            attended: false
+          });
+          classCount++;
+        }
+        
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+  
+      setProgress({
+        totalClasses: 30,
+        attendedClasses: 0,
+        classes: classes,
+        completed: false
+      });
+    }
+  }, [paymentStatus.completed, formData.courseStartDate, progress]);
+
+  // Set initial view based on application status
+  useEffect(() => {
+    const savedPaymentStatus = localStorage.getItem('userPaymentStatus');
+    if (savedPaymentStatus) {
+      const parsedPaymentStatus = JSON.parse(savedPaymentStatus);
+      if (parsedPaymentStatus.completed) {
+        setCurrentView('progressTracker');
+        return;
+      }
+    }
+
+    const savedFormData = localStorage.getItem('userDrivingLicenseFormData');
+    if (savedFormData) {
+      const parsedFormData = JSON.parse(savedFormData);
+      if (parsedFormData.submitted) {
+        setCurrentView('payment');
+        return;
+      }
+    }
+
+    const savedSchool = localStorage.getItem('userSelectedSchool');
+    if (savedSchool) {
+      setSelectedSchool(JSON.parse(savedSchool));
+      setCurrentView('bookingForm');
+    }
+  }, []);
 
   const validateForm = () => {
     const errors = {};
@@ -196,7 +283,7 @@ const UserDashboard = () => {
       'phone', 'identificationMark1', 'identificationMark2',
       'vehicleType', 'courseStartDate'
     ];
-    
+
     requiredFields.forEach(field => {
       if (!formData[field]) {
         errors[field] = 'This field is required';
@@ -229,7 +316,7 @@ const UserDashboard = () => {
     };
 
     validateAddress(formData.permanentAddress, 'permanentAddress');
-    
+
     if (!formData.sameAsPermanent) {
       validateAddress(formData.correspondenceAddress, 'correspondenceAddress');
     }
@@ -249,7 +336,7 @@ const UserDashboard = () => {
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    
+
     if (name.startsWith('permanentAddress.')) {
       const field = name.split('.')[1];
       setFormData(prev => ({
@@ -273,7 +360,7 @@ const UserDashboard = () => {
         ...prev,
         [name]: checked
       }));
-      
+
       if (name === 'sameAsPermanent' && checked) {
         setFormData(prev => ({
           ...prev,
@@ -330,6 +417,7 @@ const UserDashboard = () => {
 
   const handleSelectSchool = (school) => {
     setSelectedSchool(school);
+    localStorage.setItem('userSelectedSchool', JSON.stringify(school));
     setCurrentView('bookingForm');
   };
 
@@ -353,7 +441,7 @@ const UserDashboard = () => {
           <p><strong>Vehicle Type:</strong> {formData.vehicleType === 'twoWheeler' ? 'Two Wheeler' : 'Four Wheeler'}</p>
           <p><strong>Course Start Date:</strong> {new Date(formData.courseStartDate).toLocaleDateString()}</p>
         </div>
-        
+
         <h3>Address Details</h3>
         <div className="user-preview-section">
           <h4>Permanent Address</h4>
@@ -362,7 +450,7 @@ const UserDashboard = () => {
           <p><strong>District:</strong> {formData.permanentAddress.district}</p>
           <p><strong>City/Village:</strong> {formData.permanentAddress.city}</p>
           <p><strong>PIN Code:</strong> {formData.permanentAddress.pinCode}</p>
-          
+
           <h4>Correspondence Address</h4>
           {formData.sameAsPermanent ? (
             <p>Same as Permanent Address</p>
@@ -377,22 +465,15 @@ const UserDashboard = () => {
           )}
         </div>
 
-        {formData.messageToSchool && (
-          <div className="user-preview-section">
-            <h3>Message to School</h3>
-            <p>{formData.messageToSchool}</p>
-          </div>
-        )}
-        
         <div className="user-form-actions">
-          <button 
+          <button
             className="user-btn user-btn-secondary"
             onClick={() => setShowModal(false)}
           >
             Close
           </button>
           {!formData.submitted && (
-            <button 
+            <button
               className="user-btn user-btn-primary"
               onClick={() => {
                 setShowModal(false);
@@ -410,19 +491,19 @@ const UserDashboard = () => {
 
   const handleSubmitForm = (e) => {
     if (e) e.preventDefault();
-    
+
     if (!validateForm()) return;
-    
+
     if (!applicationId) {
       const newAppId = 'LL' + Math.floor(100000 + Math.random() * 900000);
       localStorage.setItem('userApplicationId', newAppId);
     }
-    
+
     setFormData(prev => ({
       ...prev,
       submitted: true
     }));
-    
+
     setCurrentView('payment');
   };
 
@@ -431,25 +512,20 @@ const UserDashboard = () => {
       ...prev,
       processing: true
     }));
-    
+
     await new Promise(resolve => setTimeout(resolve, 2000));
-    
+
+    const transactionId = 'TRX' + Math.floor(10000000 + Math.random() * 90000000);
+
     setPaymentStatus({
       completed: true,
       processing: false,
       success: true,
       amount: selectedSchool.price,
-      date: new Date().toISOString()
+      date: new Date().toISOString(),
+      transactionId
     });
-    
-    setProgress(prev => ({
-      ...prev,
-      classes: prev.classes.map((cls, i) => ({
-        ...cls,
-        date: new Date(Date.now() + (i * 24 * 60 * 60 * 1000)).toISOString().split('T')[0]
-      }))
-    }));
-    
+
     setCurrentView('progressTracker');
   };
 
@@ -478,8 +554,9 @@ const UserDashboard = () => {
       
       Status: Payment Received
       Payment Date: ${new Date(paymentStatus.date).toLocaleDateString()}
+      Transaction ID: ${paymentStatus.transactionId}
     `;
-    
+
     const blob = new Blob([pdfContent], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -496,9 +573,9 @@ const UserDashboard = () => {
       ...prev,
       processing: true
     }));
-    
+
     await new Promise(resolve => setTimeout(resolve, 2000));
-    
+
     setLicenseStatus({
       applied: true,
       approved: false,
@@ -508,7 +585,7 @@ const UserDashboard = () => {
       licenseNumber: '',
       vehicleType: formData.vehicleType
     });
-    
+
     setTimeout(() => {
       setLicenseStatus(prev => ({
         ...prev,
@@ -516,6 +593,7 @@ const UserDashboard = () => {
         approvalDate: new Date().toISOString(),
         licenseNumber: `DL${Math.floor(10000000 + Math.random() * 90000000)}`
       }));
+      setCurrentView('licenseDownload');
     }, 5000);
   };
 
@@ -528,8 +606,8 @@ const UserDashboard = () => {
       DOB: ${new Date(formData.dob).toLocaleDateString()}
       Valid From: ${new Date(licenseStatus.approvalDate).toLocaleDateString()}
       Valid Until: ${new Date(new Date(licenseStatus.approvalDate).setFullYear(
-        new Date(licenseStatus.approvalDate).getFullYear() + 20
-      )).toLocaleDateString()}
+      new Date(licenseStatus.approvalDate).getFullYear() + 20
+    )).toLocaleDateString()}
       Blood Group: ${formData.bloodGroup}
       Vehicle Type: ${licenseStatus.vehicleType === 'twoWheeler' ? 'MCWG (Motorcycle With Gear)' : 'LMV (Light Motor Vehicle)'}
       Address: ${formData.permanentAddress.city}, ${formData.permanentAddress.state}
@@ -537,7 +615,7 @@ const UserDashboard = () => {
       Issuing Authority:
       DL Easy, ${selectedSchool.address.split(',')[2]?.trim() || 'New Delhi'}
     `;
-    
+
     const blob = new Blob([licenseContent], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -547,7 +625,7 @@ const UserDashboard = () => {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    
+
     setLicenseStatus(prev => ({
       ...prev,
       downloaded: true
@@ -564,12 +642,12 @@ const UserDashboard = () => {
         </div>
         <div className="user-form-group">
           <label>New Password</label>
-          <input 
-            type="password" 
-            placeholder="Enter new password" 
-            pattern=".{8,}" 
+          <input
+            type="password"
+            placeholder="Enter new password"
+            pattern=".{8,}"
             title="Minimum 8 characters"
-            required 
+            required
           />
         </div>
         <div className="user-form-group">
@@ -577,8 +655,8 @@ const UserDashboard = () => {
           <input type="password" placeholder="Confirm new password" required />
         </div>
         <div className="user-form-actions">
-          <button 
-            className="user-btn user-btn-primary" 
+          <button
+            className="user-btn user-btn-primary"
             onClick={() => {
               alert('Password changed successfully!');
               setShowModal(false);
@@ -586,8 +664,8 @@ const UserDashboard = () => {
           >
             Change Password
           </button>
-          <button 
-            className="user-btn user-btn-secondary" 
+          <button
+            className="user-btn user-btn-secondary"
             onClick={() => setShowModal(false)}
           >
             Cancel
@@ -596,28 +674,42 @@ const UserDashboard = () => {
       </div>
     );
     setShowModal(true);
+    setShowUserDropdown(false);
   };
 
-  const handleLogout = () => {
-    setModalTitle('Confirm Logout');
+  const showContactSchoolModal = () => {
+    if (!selectedSchool) return;
+
+    setModalTitle(`Contact ${selectedSchool.name}`);
     setModalContent(
-      <div className="user-confirmation-modal">
-        <p>Are you sure you want to logout?</p>
+      <div className="user-contact-school">
+        <div className="user-contact-method">
+          <FiPhone className="user-contact-icon" />
+          <div>
+            <h4>Phone</h4>
+            <p>{selectedSchool.phone}</p>
+          </div>
+        </div>
+        <div className="user-contact-method">
+          <FiMail className="user-contact-icon" />
+          <div>
+            <h4>Email</h4>
+            <p>{selectedSchool.email}</p>
+          </div>
+        </div>
+        <div className="user-contact-method">
+          <FiHome className="user-contact-icon" />
+          <div>
+            <h4>Address</h4>
+            <p>{selectedSchool.address}</p>
+          </div>
+        </div>
         <div className="user-form-actions">
-          <button 
-            className="user-btn user-btn-primary" 
-            onClick={() => {
-              alert('You have been logged out successfully.');
-              setShowModal(false);
-            }}
-          >
-            Yes, Logout
-          </button>
-          <button 
-            className="user-btn user-btn-secondary" 
+          <button
+            className="user-btn user-btn-secondary"
             onClick={() => setShowModal(false)}
           >
-            Cancel
+            Close
           </button>
         </div>
       </div>
@@ -627,31 +719,31 @@ const UserDashboard = () => {
 
   const getAvailableViews = () => {
     const views = [];
-    
-    if (!selectedSchool && !formData.submitted && !paymentStatus.completed) {
-      views.push('schoolSelection');
-    }
-    
-    if (selectedSchool || formData.submitted) {
-      views.push('bookingForm');
-    }
-    
-    if (formData.submitted && !paymentStatus.completed) {
-      views.push('payment');
-    }
-    
-    if (paymentStatus.completed) {
+
+    if (!paymentStatus.completed) {
+      if (!selectedSchool && !formData.submitted) {
+        views.push('schoolSelection');
+      }
+
+      if (selectedSchool || formData.submitted) {
+        views.push('bookingForm');
+      }
+
+      if (formData.submitted) {
+        views.push('payment');
+      }
+    } else {
       views.push('progressTracker');
+
+      if (progress?.completed) {
+        views.push('applyLicense');
+      }
+
+      if (licenseStatus.approved) {
+        views.push('licenseDownload');
+      }
     }
-    
-    if (progress.completed) {
-      views.push('applyLicense');
-    }
-    
-    if (licenseStatus.approved) {
-      views.push('licenseDownload');
-    }
-    
+
     return views;
   };
 
@@ -676,7 +768,7 @@ const UserDashboard = () => {
                 <p><strong>Price:</strong> ₹{school.price}</p>
                 <p><strong>Distance:</strong> {school.distance}</p>
                 <p><strong>Available Slots:</strong> {school.slots.join(', ')}</p>
-                <p><strong>Supported Vehicles:</strong> {school.supportedVehicles.map(v => 
+                <p><strong>Supported Vehicles:</strong> {school.supportedVehicles.map(v =>
                   v === 'twoWheeler' ? 'Two Wheeler' : 'Four Wheeler'
                 ).join(', ')}</p>
                 <div className="user-school-contact">
@@ -684,7 +776,7 @@ const UserDashboard = () => {
                   <p><strong>Email:</strong> {school.email}</p>
                 </div>
               </div>
-              <button 
+              <button
                 className="user-btn user-btn-primary"
                 onClick={() => handleSelectSchool(school)}
               >
@@ -704,7 +796,7 @@ const UserDashboard = () => {
         ...prev,
         [name]: checked
       }));
-      
+
       if (name === 'sameAsPermanent' && checked) {
         setFormData(prev => ({
           ...prev,
@@ -717,7 +809,7 @@ const UserDashboard = () => {
       <div className="user-content-section">
         <div className="user-section-header">
           {!formData.submitted && (
-            <button 
+            <button
               className="user-btn user-btn-secondary user-btn-icon"
               onClick={() => setCurrentView('schoolSelection')}
             >
@@ -725,14 +817,14 @@ const UserDashboard = () => {
             </button>
           )}
           <h2 className="user-section-title">Driving License Application Form</h2>
-          
+
           {applicationId && (
             <div className="user-application-id">
               Application ID: <strong>{applicationId}</strong>
             </div>
           )}
         </div>
-        
+
         {formData.submitted ? (
           <div className="user-form-submitted-view">
             <div className="user-submitted-message">
@@ -740,15 +832,15 @@ const UserDashboard = () => {
               <h3>Application Submitted Successfully!</h3>
               <p>Your application has been submitted. You can now proceed to payment.</p>
             </div>
-            
+
             <div className="user-form-actions">
-              <button 
+              <button
                 className="user-btn user-btn-primary user-btn-icon"
                 onClick={previewForm}
               >
                 <FiEye /> View Application
               </button>
-              <button 
+              <button
                 className="user-btn user-btn-primary"
                 onClick={() => setCurrentView('payment')}
               >
@@ -784,7 +876,7 @@ const UserDashboard = () => {
                   {formErrors.dob && <span className="user-error-message">{formErrors.dob}</span>}
                 </div>
               </div>
-              
+
               <div className="user-form-row">
                 <div className="user-form-group">
                   <label>Gender</label>
@@ -813,7 +905,7 @@ const UserDashboard = () => {
                   {formErrors.fatherName && <span className="user-error-message">{formErrors.fatherName}</span>}
                 </div>
               </div>
-              
+
               <div className="user-form-row">
                 <div className="user-form-group">
                   <label>Mother's Name</label>
@@ -845,7 +937,7 @@ const UserDashboard = () => {
                   </select>
                 </div>
               </div>
-              
+
               <div className="user-form-row">
                 <div className="user-form-group">
                   <label>Phone Number</label>
@@ -870,7 +962,7 @@ const UserDashboard = () => {
                   {formErrors.alternatePhone && <span className="user-error-message">{formErrors.alternatePhone}</span>}
                 </div>
               </div>
-              
+
               <div className="user-form-group">
                 <label>Email ID</label>
                 <input
@@ -882,7 +974,7 @@ const UserDashboard = () => {
                 />
                 {formErrors.email && <span className="user-error-message">{formErrors.email}</span>}
               </div>
-              
+
               <div className="user-form-row">
                 <div className="user-form-group">
                   <label>Identification Mark 1</label>
@@ -907,7 +999,7 @@ const UserDashboard = () => {
                   {formErrors.identificationMark2 && <span className="user-error-message">{formErrors.identificationMark2}</span>}
                 </div>
               </div>
-              
+
               <div className="user-form-row">
                 <div className="user-form-group">
                   <label>Vehicle Type</label>
@@ -918,14 +1010,14 @@ const UserDashboard = () => {
                     className={formErrors.vehicleType ? 'user-error' : ''}
                   >
                     <option value="">Select Vehicle Type</option>
-                    <option 
-                      value="twoWheeler" 
+                    <option
+                      value="twoWheeler"
                       disabled={selectedSchool && !selectedSchool.supportedVehicles.includes('twoWheeler')}
                     >
                       Two Wheeler
                     </option>
-                    <option 
-                      value="fourWheeler" 
+                    <option
+                      value="fourWheeler"
                       disabled={selectedSchool && !selectedSchool.supportedVehicles.includes('fourWheeler')}
                     >
                       Four Wheeler
@@ -946,22 +1038,11 @@ const UserDashboard = () => {
                   {formErrors.courseStartDate && <span className="user-error-message">{formErrors.courseStartDate}</span>}
                 </div>
               </div>
-              
-              <div className="user-form-group">
-                <label>Special Requests/Message to School</label>
-                <textarea
-                  name="messageToSchool"
-                  value={formData.messageToSchool}
-                  onChange={handleInputChange}
-                  placeholder="Any special requests or preferences for your training..."
-                  rows="3"
-                />
-              </div>
             </div>
-            
+
             <div className="user-form-section">
               <h3>Address Details</h3>
-              
+
               <div className="user-address-section">
                 <h4>Permanent Address</h4>
                 <div className="user-form-row">
@@ -987,7 +1068,7 @@ const UserDashboard = () => {
                     {formErrors['permanentAddress.state'] && <span className="user-error-message">{formErrors['permanentAddress.state']}</span>}
                   </div>
                 </div>
-                
+
                 <div className="user-form-row">
                   <div className="user-form-group">
                     <label>District</label>
@@ -1012,7 +1093,7 @@ const UserDashboard = () => {
                     {formErrors['permanentAddress.city'] && <span className="user-error-message">{formErrors['permanentAddress.city']}</span>}
                   </div>
                 </div>
-                
+
                 <div className="user-form-group">
                   <label>PIN Code</label>
                   <input
@@ -1025,7 +1106,7 @@ const UserDashboard = () => {
                   {formErrors['permanentAddress.pinCode'] && <span className="user-error-message">{formErrors['permanentAddress.pinCode']}</span>}
                 </div>
               </div>
-              
+
               <div className="user-address-section">
                 <div className="user-same-address-checkbox">
                   <input
@@ -1037,7 +1118,7 @@ const UserDashboard = () => {
                   />
                   <label htmlFor="sameAsPermanent">Correspondence Address same as Permanent Address</label>
                 </div>
-                
+
                 {!formData.sameAsPermanent && (
                   <>
                     <h4>Correspondence Address</h4>
@@ -1064,7 +1145,7 @@ const UserDashboard = () => {
                         {formErrors['correspondenceAddress.state'] && <span className="user-error-message">{formErrors['correspondenceAddress.state']}</span>}
                       </div>
                     </div>
-                    
+
                     <div className="user-form-row">
                       <div className="user-form-group">
                         <label>District</label>
@@ -1089,7 +1170,7 @@ const UserDashboard = () => {
                         {formErrors['correspondenceAddress.city'] && <span className="user-error-message">{formErrors['correspondenceAddress.city']}</span>}
                       </div>
                     </div>
-                    
+
                     <div className="user-form-group">
                       <label>PIN Code</label>
                       <input
@@ -1105,7 +1186,7 @@ const UserDashboard = () => {
                 )}
               </div>
             </div>
-            
+
             <div className="user-form-section">
               <h3>Required Documents</h3>
               <div className="user-form-row">
@@ -1138,7 +1219,7 @@ const UserDashboard = () => {
                   )}
                 </div>
               </div>
-              
+
               <div className="user-form-row">
                 <div className="user-form-group">
                   <label>Passport-size Photograph</label>
@@ -1171,7 +1252,7 @@ const UserDashboard = () => {
                   )}
                 </div>
               </div>
-              
+
               <div className="user-form-group">
                 <label>Medical Certificate (Form 1A, if above 40 years)</label>
                 <input
@@ -1185,7 +1266,7 @@ const UserDashboard = () => {
                 )}
               </div>
             </div>
-            
+
             <div className="user-form-section user-terms-section">
               <div className="user-terms-checkbox">
                 <input
@@ -1203,9 +1284,9 @@ const UserDashboard = () => {
               </div>
               {formErrors.termsAccepted && <span className="user-error-message">{formErrors.termsAccepted}</span>}
             </div>
-            
+
             <div className="user-form-actions">
-              <button 
+              <button
                 type="button"
                 className="user-btn user-btn-secondary user-btn-icon"
                 onClick={previewForm}
@@ -1225,7 +1306,7 @@ const UserDashboard = () => {
   const renderPayment = () => (
     <div className="user-content-section user-payment-section">
       <div className="user-section-header">
-        <button 
+        <button
           className="user-btn user-btn-secondary user-btn-icon"
           onClick={() => setCurrentView('bookingForm')}
         >
@@ -1233,14 +1314,14 @@ const UserDashboard = () => {
         </button>
         <h2 className="user-section-title">Complete Your Payment</h2>
       </div>
-      
+
       <div className="user-payment-container">
         <div className="user-payment-summary-card">
           <div className="user-payment-header">
             <h3>Payment Summary</h3>
             <div className="user-application-id">Application ID: {applicationId}</div>
           </div>
-          
+
           <div className="user-payment-details">
             <div className="user-detail-row">
               <span>Driving School:</span>
@@ -1272,61 +1353,38 @@ const UserDashboard = () => {
             </div>
           </div>
         </div>
-        
+
         {!paymentStatus.success ? (
           <div className="user-payment-method-card">
             <div className="user-payment-method-header">
-              <h3>Select Payment Method</h3>
+              <h3>UPI Payment</h3>
             </div>
-            
-            <div className="user-payment-method-tabs">
-              <div className="user-payment-tab user-active-tab">UPI</div>
-            </div>
-            
+
             <div className="user-upi-payment">
               <div className="user-upi-header">
-                <img src="https://via.placeholder.com/30" alt="UPI" className="user-upi-logo" />
-                <span>Pay via UPI</span>
+                <div className="user-upi-logo">UPI</div>
+                <span>Pay via any UPI app</span>
               </div>
-              
-              <div className="user-upi-apps">
-                <div className="user-upi-app">
-                  <img src="https://via.placeholder.com/50" alt="GPay" />
-                  <span>Google Pay</span>
-                </div>
-                <div className="user-upi-app">
-                  <img src="https://via.placeholder.com/50" alt="PhonePe" />
-                  <span>PhonePe</span>
-                </div>
-                <div className="user-upi-app">
-                  <img src="https://via.placeholder.com/50" alt="Paytm" />
-                  <span>Paytm</span>
-                </div>
-                <div className="user-upi-app">
-                  <img src="https://via.placeholder.com/50" alt="BHIM" />
-                  <span>BHIM</span>
-                </div>
-              </div>
-              
+
               <div className="user-form-group">
                 <label>Enter UPI ID</label>
-                <input 
-                  type="text" 
-                  placeholder="e.g. 9876543210@upi" 
+                <input
+                  type="text"
+                  placeholder="e.g. 9876543210@upi"
                   className="user-upi-input"
                   required
                 />
               </div>
-              
+
               <div className="user-payment-security">
                 <div className="user-security-badge">
                   <FiLock /> Secure Payment
                 </div>
-                <p>Your payment is secured.</p>
+                <p>Your payment is secured with 256-bit encryption</p>
               </div>
-              
+
               <div className="user-payment-actions">
-                <button 
+                <button
                   className="user-btn user-btn-primary user-pay-now-btn"
                   onClick={handlePayment}
                   disabled={paymentStatus.processing}
@@ -1346,16 +1404,16 @@ const UserDashboard = () => {
           <div className="user-payment-success-card">
             <div className="user-success-icon">
               <svg viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
               </svg>
             </div>
             <h3>Payment Received Successfully!</h3>
             <p className="user-success-message">Your payment of ₹{selectedSchool.price} has been processed successfully.</p>
-            
+
             <div className="user-payment-receipt">
               <div className="user-receipt-row">
                 <span>Transaction ID:</span>
-                <span>TRX{Math.floor(10000000 + Math.random() * 90000000)}</span>
+                <span>{paymentStatus.transactionId}</span>
               </div>
               <div className="user-receipt-row">
                 <span>Date & Time:</span>
@@ -1374,15 +1432,15 @@ const UserDashboard = () => {
                 <span>{new Date(formData.courseStartDate).toLocaleDateString()}</span>
               </div>
             </div>
-            
+
             <div className="user-payment-success-actions">
-              <button 
+              <button
                 className="user-btn user-btn-secondary user-btn-icon"
                 onClick={generateFormPDF}
               >
                 <FiDownload /> Download Receipt
               </button>
-              <button 
+              <button
                 className="user-btn user-btn-primary"
                 onClick={() => setCurrentView('progressTracker')}
               >
@@ -1395,86 +1453,111 @@ const UserDashboard = () => {
     </div>
   );
 
-  const renderProgressTracker = () => (
-    <div className="user-content-section user-progress-section">
-      <div className="user-progress-header">
-        <h2 className="user-section-title">Your Learning Journey</h2>
-        <div className="user-application-id">Application ID: {applicationId}</div>
-      </div>
-      
-      <div className="user-progress-container">
-        <div className="user-progress-card">
-          <div className="user-progress-visual">
-            <div className="user-circular-progress">
-              <svg className="user-progress-ring" viewBox="0 0 100 100">
-                <circle className="user-progress-ring-circle-bg" cx="50" cy="50" r="45" />
-                <circle 
-                  className="user-progress-ring-circle" 
-                  cx="50" cy="50" r="45" 
-                  style={{
-                    strokeDasharray: `${(progressPercentage / 100) * 283} 283`
-                  }}
-                />
-              </svg>
-              <div className="user-progress-percentage">{progressPercentage}%</div>
-            </div>
-            
-            <div className="user-progress-stats">
-              <div className="user-stat">
-                <div className="user-stat-value">{progress.attendedClasses}</div>
-                <div className="user-stat-label">Classes Attended</div>
+  const renderProgressTracker = () => {
+    if (!progress) {
+      return (
+        <div className="user-content-section">
+          <div className="user-loading-spinner">Loading your progress...</div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="user-content-section user-progress-section">
+        <div className="user-progress-header">
+          <h2 className="user-section-title">Your Learning Journey</h2>
+          <div className="user-application-id">Application ID: {applicationId}</div>
+        </div>
+
+        <div className="user-progress-container">
+          <div className="user-progress-card">
+            <div className="user-progress-visual">
+              <div className="user-circular-progress">
+                <svg className="user-progress-ring" viewBox="0 0 100 100">
+                  <circle className="user-progress-ring-circle-bg" cx="50" cy="50" r="45" />
+                  <circle
+                    className="user-progress-ring-circle"
+                    cx="50" cy="50" r="45"
+                    style={{
+                      strokeDasharray: `${(progressPercentage / 100) * 283} 283`
+                    }}
+                  />
+                </svg>
+                <div className="user-progress-percentage">{progressPercentage}%</div>
               </div>
-              <div className="user-stat">
-                <div className="user-stat-value">{progress.totalClasses - progress.attendedClasses}</div>
-                <div className="user-stat-label">Classes Remaining</div>
-              </div>
-              <div className="user-stat">
-                <div className="user-stat-value">
-                  {formData.vehicleType === 'twoWheeler' ? 'Two Wheeler' : 'Four Wheeler'}
+
+              <div className="user-progress-stats">
+                <div className="user-stat">
+                  <div className="user-stat-value">{progress.attendedClasses}</div>
+                  <div className="user-stat-label">Classes Attended</div>
                 </div>
-                <div className="user-stat-label">Vehicle Type</div>
+                <div className="user-stat">
+                  <div className="user-stat-value">{progress.totalClasses - progress.attendedClasses}</div>
+                  <div className="user-stat-label">Classes Remaining</div>
+                </div>
+                <div className="user-stat">
+                  <div className="user-stat-value">
+                    {formData.vehicleType === 'twoWheeler' ? 'Two Wheeler' : 'Four Wheeler'}
+                  </div>
+                  <div className="user-stat-label">Vehicle Type</div>
+                </div>
               </div>
             </div>
-          </div>
-          
-          <div className="user-progress-details">
-            <h3>Your Class Schedule</h3>
-            <div className="user-classes-timeline">
-              {progress.classes.map(cls => (
-                <div key={cls.id} className={`user-class-item ${cls.attended ? 'user-attended' : ''}`}>
-                  <div className="user-class-indicator">
-                    {cls.attended ? <FiCheck className="user-attended-icon" /> : <FiClock className="user-pending-icon" />}
-                  </div>
-                  <div className="user-class-info">
-                    <div className="user-class-number">Class {cls.id}</div>
-                    <div className="user-class-date">{cls.date} • {cls.time}</div>
-                    <div className="user-class-status">
-                      {cls.attended ? 'Completed' : 'Pending'}
+
+            <div className="user-progress-details">
+              <div className="user-progress-actions">
+                <h3>Your Class Schedule</h3>
+                <button
+                  className="user-btn user-btn-secondary user-btn-icon"
+                  onClick={showContactSchoolModal}
+                >
+                  <FiMessageSquare /> Contact School
+                </button>
+              </div>
+              <div className="user-classes-timeline">
+                {progress.classes.map(cls => (
+                  <div key={cls.id} className={`user-class-item ${cls.attended ? 'user-attended' : ''}`}>
+                    <div className="user-class-indicator">
+                      {cls.attended ? <FiCheck className="user-attended-icon" /> : <FiClock className="user-pending-icon" />}
+                    </div>
+                    <div className="user-class-info">
+                      <div className="user-class-number">Class {cls.id}</div>
+                      <div className="user-class-date">
+                        {new Date(cls.date).toLocaleDateString('en-US', {
+                          weekday: 'short',
+                          year: 'numeric',
+                          month: 'short',
+                          day: 'numeric'
+                        })} • {cls.time}
+                      </div>
+                      <div className="user-class-status">
+                        {cls.attended ? 'Completed' : 'Pending'}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
+
+        {progress.completed && (
+          <div className="user-progress-complete-card">
+            <div className="user-complete-icon">🎉</div>
+            <h3>Congratulations on Completing Your Training!</h3>
+            <p>You've successfully completed all {progress.totalClasses} classes for {formData.vehicleType === 'twoWheeler' ? 'Two Wheeler' : 'Four Wheeler'} training. You're now eligible to apply for your driving license test.</p>
+
+            <button
+              className="user-btn user-btn-primary"
+              onClick={() => setCurrentView('applyLicense')}
+            >
+              Apply for Driving License
+            </button>
+          </div>
+        )}
       </div>
-      
-      {progress.completed && (
-        <div className="user-progress-complete-card">
-          <div className="user-complete-icon">🎉</div>
-          <h3>Congratulations on Completing Your Training!</h3>
-          <p>You've successfully completed all {progress.totalClasses} classes for {formData.vehicleType === 'twoWheeler' ? 'Two Wheeler' : 'Four Wheeler'} training. You're now eligible to apply for your driving license test.</p>
-          
-          <button 
-            className="user-btn user-btn-primary"
-            onClick={() => setCurrentView('applyLicense')}
-          >
-            Apply for Driving License
-          </button>
-        </div>
-      )}
-    </div>
-  );
+    );
+  };
 
   const renderApplyLicense = () => (
     <div className="user-content-section user-license-section">
@@ -1482,7 +1565,7 @@ const UserDashboard = () => {
         <h2 className="user-section-title">Driving License Application</h2>
         <div className="user-application-id">Application ID: {applicationId}</div>
       </div>
-      
+
       <div className="user-license-process">
         <div className="user-process-steps">
           <div className="user-step user-completed">
@@ -1492,7 +1575,7 @@ const UserDashboard = () => {
               <p>Attend all {progress.totalClasses} classes</p>
             </div>
           </div>
-          
+
           <div className={`user-step ${licenseStatus.applied ? 'user-completed' : 'user-active'}`}>
             <div className="user-step-number">2</div>
             <div className="user-step-info">
@@ -1500,7 +1583,7 @@ const UserDashboard = () => {
               <p>Submit application and pay fees</p>
             </div>
           </div>
-          
+
           <div className={`user-step ${licenseStatus.approved ? 'user-completed' : licenseStatus.applied ? 'user-active' : ''}`}>
             <div className="user-step-number">3</div>
             <div className="user-step-info">
@@ -1508,7 +1591,7 @@ const UserDashboard = () => {
               <p>Processing and verification</p>
             </div>
           </div>
-          
+
           <div className={`user-step ${licenseStatus.downloaded ? 'user-completed' : licenseStatus.approved ? 'user-active' : ''}`}>
             <div className="user-step-number">4</div>
             <div className="user-step-info">
@@ -1517,12 +1600,12 @@ const UserDashboard = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="user-license-content">
           {!licenseStatus.applied ? (
             <div className="user-license-application">
               <h3>License Application Details</h3>
-              
+
               <div className="user-fee-card">
                 <div className="user-fee-header">
                   <h4>License Fee Breakdown</h4>
@@ -1546,9 +1629,9 @@ const UserDashboard = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="user-payment-actions">
-                <button 
+                <button
                   className="user-btn user-btn-primary"
                   onClick={handleApplyLicense}
                   disabled={paymentStatus.processing}
@@ -1562,7 +1645,7 @@ const UserDashboard = () => {
               <div className="user-status-icon">⏳</div>
               <h3>Application Submitted Successfully!</h3>
               <p>Your driving license application for {formData.vehicleType === 'twoWheeler' ? 'Two Wheeler' : 'Four Wheeler'} is being processed. This usually takes 3-5 working days.</p>
-              
+
               <div className="user-status-details">
                 <div className="user-detail">
                   <span>Application Number:</span>
@@ -1573,7 +1656,7 @@ const UserDashboard = () => {
                   <strong>{formData.vehicleType === 'twoWheeler' ? 'Two Wheeler (MCWG)' : 'Four Wheeler (LMV)'}</strong>
                 </div>
               </div>
-              
+
               <p className="user-note">You'll receive an SMS and email once your license is approved and ready for download.</p>
             </div>
           ) : (
@@ -1581,7 +1664,7 @@ const UserDashboard = () => {
               <div className="user-ready-icon">✅</div>
               <h3>Your Driving License is Ready!</h3>
               <p>Congratulations! Your {formData.vehicleType === 'twoWheeler' ? 'Two Wheeler' : 'Four Wheeler'} driving license has been approved and is now available for download.</p>
-              
+
               <div className="user-license-details">
                 <div className="user-detail">
                   <span>License Number:</span>
@@ -1604,14 +1687,14 @@ const UserDashboard = () => {
                   </strong>
                 </div>
               </div>
-              
-              <button 
+
+              <button
                 className="user-btn user-btn-primary user-btn-icon"
                 onClick={handleDownloadLicense}
               >
                 <FiDownload /> Download License
               </button>
-              
+
               <p className="user-email-note">A copy has been sent to your registered email: {formData.email || 'john.doe@example.com'}</p>
             </div>
           )}
@@ -1623,31 +1706,31 @@ const UserDashboard = () => {
   const renderLicenseDownload = () => (
     <div className="user-content-section user-download-section">
       <h2 className="user-section-title">Your Driving License</h2>
-      
+
       <div className="user-license-card">
         <div className="user-license-header">
           <h3>Driving License</h3>
           <div className="user-license-number">{licenseStatus.licenseNumber}</div>
         </div>
-        
+
         <div className="user-license-details">
           <div className="user-license-photo">
             <div className="user-photo-placeholder">Photo</div>
           </div>
-          
+
           <div className="user-license-info">
             <p><strong>Name:</strong> {formData.fullName || 'John Doe'}</p>
             <p><strong>DOB:</strong> {new Date(formData.dob).toLocaleDateString() || '01/01/1990'}</p>
             <p><strong>License Type:</strong> {licenseStatus.vehicleType === 'twoWheeler' ? 'MCWG' : 'LMV'}</p>
             <p><strong>Valid From:</strong> {new Date(licenseStatus.approvalDate).toLocaleDateString()}</p>
-            <p><strong>Valid Until:</strong> 
+            <p><strong>Valid Until:</strong>
               {new Date(new Date(licenseStatus.approvalDate).setFullYear(
                 new Date(licenseStatus.approvalDate).getFullYear() + 20
               )).toLocaleDateString()}
             </p>
           </div>
         </div>
-        
+
         <div className="user-license-footer">
           <div className="user-signature">
             <div className="user-signature-placeholder">Signature</div>
@@ -1657,9 +1740,9 @@ const UserDashboard = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="user-download-actions">
-        <button 
+        <button
           className="user-btn user-btn-primary user-btn-icon"
           onClick={handleDownloadLicense}
         >
@@ -1698,7 +1781,7 @@ const UserDashboard = () => {
     <div className={`user-dashboard ${sidebarOpen ? '' : 'user-sidebar-collapsed'}`}>
       <aside className="user-sidebar">
         <div className="user-sidebar-header">
-          <button 
+          <button
             className="user-sidebar-toggle"
             onClick={() => setSidebarOpen(!sidebarOpen)}
           >
@@ -1706,11 +1789,11 @@ const UserDashboard = () => {
           </button>
           <h2>DL Portal</h2>
         </div>
-        
+
         <nav className="user-sidebar-nav">
           <ul>
             {getAvailableViews().map(view => (
-              <li 
+              <li
                 key={view}
                 className={currentView === view ? 'user-active' : ''}
                 onClick={() => setCurrentView(view)}
@@ -1725,18 +1808,8 @@ const UserDashboard = () => {
             ))}
           </ul>
         </nav>
-        
-        <div className="user-sidebar-footer">
-          <button 
-            className="user-logout-btn"
-            onClick={handleLogout}
-          >
-            <RiLogoutCircleRLine className="user-icon" />
-            <span>Logout</span>
-          </button>
-        </div>
       </aside>
-      
+
       <main className="user-main-content">
         <header className="user-main-header">
           <div className="user-header-left">
@@ -1752,31 +1825,62 @@ const UserDashboard = () => {
               <div className="user-application-id">Application ID: {applicationId}</div>
             )}
           </div>
-          
+
           <div className="user-header-right">
             <div className="user-profile">
-              <span className="user-name"><FiUser/> {user.name}</span>
-              <div className="user-actions">
-                <button 
-                  className="user-change-password"
-                  onClick={showChangePasswordModal}
-                >
-                  <FiLock /> Change Password
-                </button>
+              <div
+                className="user-profile-dropdown"
+                onClick={() => setShowUserDropdown(!showUserDropdown)}
+              >
+                <span className="user-name"><FiUser /> {user.name}</span>
+                <FiChevronDown className={`user-dropdown-icon ${showUserDropdown ? 'user-rotate' : ''}`} />
               </div>
+
+              {showUserDropdown && (
+                <div className="user-dropdown-menu">
+                  <div className="user-dropdown-item">
+                    <FiUser className="user-dropdown-icon" />
+                    <span>{user.name}</span>
+                  </div>
+                  <div className="user-dropdown-item">
+                    <FiMail className="user-dropdown-icon" />
+                    <span>{user.email}</span>
+                  </div>
+                  <div className="user-dropdown-item">
+                    <FiPhone className="user-dropdown-icon" />
+                    <span>{user.phone}</span>
+                  </div>
+                  <div
+                    className="user-dropdown-item"
+                    onClick={showChangePasswordModal}
+                  >
+                    <FiLock className="user-dropdown-icon" />
+                    <span>Change Password</span>
+                  </div>
+                </div>
+              )}
             </div>
+
+            {selectedSchool && paymentStatus.completed && (
+              <button
+                className="user-btn user-btn-secondary user-btn-icon"
+                onClick={showContactSchoolModal}
+              >
+                <FiMessageSquare /> Contact School
+              </button>
+            )}
           </div>
         </header>
-        
+
         {renderCurrentView()}
       </main>
-      
+
       {showModal && (
         <div className="user-modal-overlay">
           <div className="user-modal-container">
             <div className="user-modal-header">
               <h3>{modalTitle}</h3>
-              <button 
+              <button
                 className="user-modal-close"
                 onClick={() => setShowModal(false)}
               >
