@@ -1,0 +1,190 @@
+/* Reuse your navbar styles */
+.user-navbar {
+    width: 100%;
+    display: flex;
+    height: 70px;
+    padding: 0 20px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #e9ecef;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-navbar-item.active {
+    color: #1a73e8;
+    font-weight: 600;
+  }
+  
+  .user-navbar-item.active::after {
+    width: 100% !important;
+  }
+  
+  /* Page container */
+  .user-page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* About Us content */
+  .user-about-container {
+    flex: 1;
+    padding: 0 5%;
+    background-color: #fff;
+  }
+  
+  .user-about-hero {
+    padding: 60px 0 40px;
+    text-align: center;
+    background: linear-gradient(135deg, #f6f9fc 0%, #eef2f5 100%);
+    margin-bottom: 40px;
+    border-radius: 0 0 20px 20px;
+  }
+  
+  .user-about-hero h1 {
+    font-size: 2.5rem;
+    color: #2d3748;
+    margin-bottom: 10px;
+  }
+  
+  .user-about-subtitle {
+    font-size: 1.2rem;
+    color: #4a5568;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .user-about-content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .user-about-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #edf2f7;
+  }
+  
+  .user-about-card h2 {
+    font-size: 1.8rem;
+    color: #2d3748;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 10px;
+  }
+  
+  .user-about-card h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: #1a73e8;
+  }
+  
+  .user-about-card p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #4a5568;
+    margin-bottom: 20px;
+  }
+  
+  /* Values section */
+  .user-about-values {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .user-about-values li {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+    align-items: flex-start;
+  }
+  
+  .user-value-icon {
+    font-size: 1.8rem;
+    background: #ebf8ff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  
+  .user-about-values h3 {
+    font-size: 1.3rem;
+    color: #2d3748;
+    margin-bottom: 5px;
+  }
+  
+  .user-about-values p {
+    font-size: 1rem;
+    margin: 0;
+  }
+  
+  /* Team section */
+  .user-team-section {
+    text-align: center;
+  }
+  
+  .user-team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+  }
+  
+  .user-team-member {
+    padding: 20px;
+  }
+  
+  .user-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    margin: 0 auto 20px;
+    background-size: cover;
+  }
+  
+  .user-team-member h3 {
+    font-size: 1.3rem;
+    color: #2d3748;
+    margin-bottom: 5px;
+  }
+  
+  .user-team-member p {
+    color: #718096;
+    font-size: 1rem;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .user-about-hero {
+      padding: 40px 0;
+    }
+    
+    .user-about-hero h1 {
+      font-size: 2rem;
+    }
+    
+    .user-about-subtitle {
+      font-size: 1rem;
+    }
+    
+    .user-about-card {
+      padding: 20px;
+    }
+    
+    .user-team-grid {
+      grid-template-columns: 1fr;
+    }
+  }

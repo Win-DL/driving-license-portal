@@ -44,6 +44,21 @@ const DlResetPassword = () => {
     <div className="dl2-reset-container">
       <nav className="dl2-navbar">
         <img alt="DL Easy Logo" src={logo} className="dl2-logo" />
+
+        <div className="user-navbar-links">
+          <ul className="user-navbar-list">
+            <li className="user-navbar-item" onClick={() => navigate("/about")}>
+              About Us
+            </li>
+            <li className="user-navbar-item" onClick={() => navigate("/contact")}>
+              Contact Us
+            </li>
+            <li className="user-navbar-item" onClick={() => navigate("/privacy")}>
+              Privacy Policy
+            </li>
+          </ul>
+        </div>
+
       </nav>
 
       <div className="dl2-main-content">

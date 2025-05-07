@@ -27,6 +27,21 @@ const RegisterPage = ({ header = "Register", register = "Register" }) => {
     <div className="user-register-container">
       <nav className="user-navbar">
         <img alt="DL Easy Logo" src={logo} className="user-logo" />
+
+        <div className="user-navbar-links">
+          <ul className="user-navbar-list">
+            <li className="user-navbar-item" onClick={() => navigate("/about")}>
+              About Us
+            </li>
+            <li className="user-navbar-item" onClick={() => navigate("/privacy")}>
+              Privacy Policy
+            </li>
+            <li className="user-navbar-item" onClick={() => navigate("/help")}>
+              Help Center
+            </li>
+          </ul>
+        </div>
+
       </nav>
 
       <div className="user-content">

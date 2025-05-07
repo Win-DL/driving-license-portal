@@ -11,7 +11,7 @@ const Footer = ({
   usefulLinks = [
     { text: "Contact Support", url: "/contact" },
     { text: "Privacy Policy", url: "/privacy" },
-    { text: "Terms of Service", url: "/terms" },
+    { text: "About Us", url: "/about" },
     { text: "Help Center", url: "/help" }
   ]
 }) => {

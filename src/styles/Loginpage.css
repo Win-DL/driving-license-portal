@@ -18,6 +18,10 @@ body {
   border-radius: 8px;
 }
 
+.user-logo {
+  height: 3rem;
+}
+
 .user-navbar {
   width: 100%;
   display: flex;
@@ -30,23 +34,49 @@ body {
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.user-logo {
-  height: 3rem;
-}
-
-.user-nav-links {
+.user-navbar-links {
   display: flex;
+  align-items: center;
+}
+
+.user-navbar-list {
+  display: flex;
+  list-style: none;
   gap: 20px;
+  margin: 0;
+  padding: 0;
 }
 
-.user-nav-links a {
+.user-navbar-item {
   color: #000;
-  text-decoration: none;
   font-weight: 500;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-.user-nav-links a:hover {
-  text-decoration: underline;
+.user-navbar-item:hover {
+  color: #1a73e8;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.user-navbar-item::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%; 
+  width: 0;
+  height: 2px;
+  background-color: #1a73e8;
+  transition: width 0.3s ease, left 0.3s ease; 
+  transform: translateX(-50%); 
+}
+
+.user-navbar-item:hover::after {
+  width: 100%;
+  left: 50%; 
 }
 
 .user-content {
@@ -317,6 +347,15 @@ body {
 }
 
 @media (max-width: 768px) {
+  .user-navbar-list {
+    gap: 15px;
+  }
+  
+  .user-navbar-item {
+    padding: 6px 8px;
+    font-size: 0.9rem;
+  }
+  
   .user-content {
     flex-direction: column;
     align-items: center;
@@ -336,6 +375,19 @@ body {
 }
 
 @media (max-width: 480px) {
+  .user-navbar {
+    padding: 0 10px;
+  }
+  
+  .user-navbar-list {
+    gap: 10px;
+  }
+  
+  .user-navbar-item {
+    padding: 4px 6px;
+    font-size: 0.8rem;
+  }
+
   .user-login-box h2 {
     font-size: 1.2rem;
     text-align: center;
@@ -353,3 +405,6 @@ body {
     font-size: 0.9rem;
   }
 }
+
+
+
